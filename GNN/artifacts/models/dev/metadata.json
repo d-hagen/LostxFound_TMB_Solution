@@ -1,0 +1,41 @@
+{
+  "data_path": "artifacts/data/synth.jsonl",
+  "config": {
+    "hidden": 64,
+    "layers": 2,
+    "dropout": 0.1,
+    "station_feat_dim": 16,
+    "n_contexts": 104,
+    "n_stations": 157
+  },
+  "test_metrics": {
+    "loss": 3.03296171875,
+    "top1": 0.2914,
+    "top3": 0.4554,
+    "top5": 0.5494,
+    "expected_hops": 3.3701999187469482,
+    "coverage": 0.49044585987261147,
+    "zone_hops": {
+      "airport": 5.476190567016602,
+      "business": 2.1783132553100586,
+      "hospital": 4.04950475692749,
+      "industrial": 6.205992698669434,
+      "leisure": 3.1619317531585693,
+      "residential": 5.076040267944336,
+      "tourist": 2.17753267288208,
+      "university": 3.550583600997925
+    }
+  },
+  "baselines": {
+    "same_station": {
+      "expected_hops": 4.206399917602539,
+      "coverage": 0.9745222929936306
+    },
+    "mode_lookup": {
+      "expected_hops": 4.132999897003174,
+      "coverage": 0.6815286624203821
+    }
+  },
+  "seed": 0,
+  "n_params": 103746
+}

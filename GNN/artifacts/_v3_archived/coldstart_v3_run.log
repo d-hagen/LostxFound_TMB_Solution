@@ -1,0 +1,89 @@
+Device: cpu
+Stations: 157 total, 24 held out (cold)
+Events: train=36285  warm-val=4031  cold=9684
+Sample of held-out stations: ['Aeroport T1', 'Alfons X', 'Bon Pastor', "Camp de l'Arpa", 'Ciutat Meridiana', 'Diagonal', 'El Maresme-Fòrum', 'Església Major'] ...
+
+========== train full  (n_layers=2) ==========
+  metro=352  found=5899  lost=6380  pickup=7257
+  params: 103,746
+  ep  0   0.9s tl=4.5944 vl=4.1581 t1=0.083 E[h]=5.21
+  ep  1   0.8s tl=4.1766 vl=4.0603 t1=0.110 E[h]=5.17
+  ep  2   0.8s tl=4.0690 vl=4.0141 t1=0.126 E[h]=5.16
+  ep  3   0.8s tl=4.0068 vl=3.9223 t1=0.132 E[h]=4.98
+  ep  4   0.8s tl=3.9576 vl=3.8872 t1=0.148 E[h]=4.97
+  ep  5   0.8s tl=3.9219 vl=3.8579 t1=0.146 E[h]=4.93
+  ep  6   0.8s tl=3.8953 vl=3.8435 t1=0.151 E[h]=4.95
+  ep  7   0.8s tl=3.8701 vl=3.8220 t1=0.152 E[h]=4.88
+  ep  8   0.8s tl=3.8429 vl=3.8075 t1=0.156 E[h]=4.90
+  ep  9   0.8s tl=3.8262 vl=3.8058 t1=0.161 E[h]=4.85
+  ep 10   0.8s tl=3.8118 vl=3.7980 t1=0.156 E[h]=4.87
+  ep 11   0.8s tl=3.8009 vl=3.7791 t1=0.165 E[h]=4.83
+  ep 12   0.8s tl=3.7904 vl=3.7777 t1=0.161 E[h]=4.87
+  ep 13   0.9s tl=3.7784 vl=3.7716 t1=0.167 E[h]=4.86
+  ep 14   1.0s tl=3.7682 vl=3.7612 t1=0.167 E[h]=4.82
+  ep 15   1.0s tl=3.7617 vl=3.7672 t1=0.163 E[h]=4.81
+  ep 16   0.9s tl=3.7503 vl=3.7591 t1=0.162 E[h]=4.86
+  ep 17   0.9s tl=3.7471 vl=3.7460 t1=0.165 E[h]=4.84
+  ep 18   0.9s tl=3.7364 vl=3.7421 t1=0.168 E[h]=4.83
+  ep 19   0.8s tl=3.7347 vl=3.7508 t1=0.165 E[h]=4.85
+  ep 20   0.8s tl=3.7261 vl=3.7418 t1=0.166 E[h]=4.77
+  ep 21   0.8s tl=3.7196 vl=3.7323 t1=0.164 E[h]=4.81
+  ep 22   0.9s tl=3.7147 vl=3.7393 t1=0.166 E[h]=4.84
+  ep 23   0.8s tl=3.7103 vl=3.7469 t1=0.164 E[h]=4.85
+  ep 24   0.8s tl=3.7048 vl=3.7290 t1=0.165 E[h]=4.80
+  ep 25   0.8s tl=3.7019 vl=3.7416 t1=0.167 E[h]=4.83
+  ep 26   0.8s tl=3.6926 vl=3.7321 t1=0.168 E[h]=4.80
+  ep 27   0.8s tl=3.6909 vl=3.7399 t1=0.165 E[h]=4.84
+  ep 28   0.8s tl=3.6865 vl=3.7296 t1=0.167 E[h]=4.82
+  early stop @ ep 28
+
+========== train no_mp  (n_layers=0) ==========
+  metro=352  found=5899  lost=6380  pickup=7257
+  params: 28,354
+  ep  0   0.1s tl=4.5323 vl=4.4369 t1=0.067 E[h]=5.37
+  ep  1   0.1s tl=4.4138 vl=4.4118 t1=0.067 E[h]=5.35
+  ep  2   0.1s tl=4.3906 vl=4.4009 t1=0.071 E[h]=5.35
+  ep  3   0.1s tl=4.3735 vl=4.3885 t1=0.074 E[h]=5.36
+  ep  4   0.1s tl=4.3596 vl=4.3781 t1=0.073 E[h]=5.36
+  ep  5   0.1s tl=4.3469 vl=4.3827 t1=0.079 E[h]=5.36
+  ep  6   0.1s tl=4.3359 vl=4.3725 t1=0.086 E[h]=5.32
+  ep  7   0.1s tl=4.3254 vl=4.3745 t1=0.086 E[h]=5.35
+  ep  8   0.1s tl=4.3167 vl=4.3757 t1=0.090 E[h]=5.34
+  ep  9   0.1s tl=4.3075 vl=4.3792 t1=0.094 E[h]=5.35
+  ep 10   0.1s tl=4.2987 vl=4.3672 t1=0.091 E[h]=5.37
+  ep 11   0.1s tl=4.2919 vl=4.3694 t1=0.097 E[h]=5.35
+  ep 12   0.1s tl=4.2861 vl=4.3675 t1=0.093 E[h]=5.35
+  ep 13   0.1s tl=4.2776 vl=4.3687 t1=0.095 E[h]=5.31
+  ep 14   0.1s tl=4.2719 vl=4.3695 t1=0.097 E[h]=5.32
+  ep 15   0.1s tl=4.2654 vl=4.3634 t1=0.094 E[h]=5.34
+  ep 16   0.1s tl=4.2590 vl=4.3679 t1=0.102 E[h]=5.32
+  ep 17   0.1s tl=4.2540 vl=4.3728 t1=0.099 E[h]=5.35
+  ep 18   0.1s tl=4.2486 vl=4.3683 t1=0.100 E[h]=5.34
+  ep 19   0.1s tl=4.2412 vl=4.3735 t1=0.102 E[h]=5.34
+  ep 20   0.1s tl=4.2394 vl=4.3668 t1=0.105 E[h]=5.35
+  ep 21   0.1s tl=4.2335 vl=4.3748 t1=0.104 E[h]=5.34
+  early stop @ ep 21
+
+=== Warm-val (sanity check: in-distribution events) ===
+  full   top1=0.166 top3=0.322 top5=0.417 E[hops]=4.77
+  no_mp  top1=0.095 top3=0.193 top5=0.256 E[hops]=5.31
+
+=== COLD-TEST (found_at or lost_at ∈ unseen stations) ===
+  full   top1=0.104 top3=0.215 top5=0.289 E[hops]=5.60 cov=0.24
+  no_mp  top1=0.061 top3=0.131 top5=0.187 E[hops]=5.77 cov=0.18
+
+=== Baselines on cold-test ===
+  same_station    E[hops]=7.02 cov=0.75
+  mode_lookup     E[hops]=6.59 cov=0.63
+
+=== HEADLINE ===
+                  warm-val   cold-test
+full GNN        E[h]= 4.77  E[h]= 5.60
+no-MP (feat)    E[h]= 5.31  E[h]= 5.77
+mode_lookup              —  E[h]= 6.59
+same_station             —  E[h]= 7.02
+
+Full GNN advantage on cold-test:
+  vs no_mp:       +0.18 hops
+  vs mode_lookup: +0.99 hops
+  vs same_st:     +1.42 hops

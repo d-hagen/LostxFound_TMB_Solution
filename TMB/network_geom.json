@@ -1,0 +1,1741 @@
+{
+  "stations": {
+    "Aeroport T1": {
+      "x": 2.07104,
+      "y": 41.288258,
+      "zone": "airport",
+      "transfer": false
+    },
+    "Aeroport T2": {
+      "x": 2.073121,
+      "y": 41.303826,
+      "zone": "airport",
+      "transfer": false
+    },
+    "Alfons X": {
+      "x": 2.165,
+      "y": 41.4121,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Almeda": {
+      "x": 2.085278,
+      "y": 41.353056,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Arc de Triomf": {
+      "x": 2.180909,
+      "y": 41.392114,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Artigues-Sant Adrià": {
+      "x": 2.217573,
+      "y": 41.433721,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Avinguda Carrilet": {
+      "x": 2.102483,
+      "y": 41.358913,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Avinguda Tibidabo": {
+      "x": 2.137297,
+      "y": 41.409396,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Bac de Roda": {
+      "x": 2.195106,
+      "y": 41.414881,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Badal": {
+      "x": 2.128927,
+      "y": 41.375552,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Badalona Pompeu Fabra": {
+      "x": 2.244221,
+      "y": 41.448961,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Barceloneta": {
+      "x": 2.185482,
+      "y": 41.382117,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Baró de Viver": {
+      "x": 2.199539,
+      "y": 41.449947,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Bellvitge": {
+      "x": 2.110935,
+      "y": 41.350965,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Besòs": {
+      "x": 2.209713,
+      "y": 41.420369,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Besòs Mar": {
+      "x": 2.216085,
+      "y": 41.415094,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Bogatell": {
+      "x": 2.19204,
+      "y": 41.395099,
+      "zone": "leisure",
+      "transfer": false
+    },
+    "Bon Pastor": {
+      "x": 2.204808,
+      "y": 41.436126,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Camp de l'Arpa": {
+      "x": 2.181013,
+      "y": 41.414686,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Can Boixeres": {
+      "x": 2.091518,
+      "y": 41.366582,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Can Cuiàs": {
+      "x": 2.1715,
+      "y": 41.4627,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Can Peixauet": {
+      "x": 2.210286,
+      "y": 41.444472,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Can Serra": {
+      "x": 2.102736,
+      "y": 41.367684,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Can Tries-Gornal": {
+      "x": 2.118199,
+      "y": 41.360721,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Can Vidalet": {
+      "x": 2.0992,
+      "y": 41.3716,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Can Zam": {
+      "x": 2.198494,
+      "y": 41.457679,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Canyelles": {
+      "x": 2.166439,
+      "y": 41.44177,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Casa de l'Aigua": {
+      "x": 2.1854,
+      "y": 41.4515,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Catalunya": {
+      "x": 2.170084,
+      "y": 41.386547,
+      "zone": "business",
+      "transfer": true
+    },
+    "Ciutadella-Vila Olímpica": {
+      "x": 2.193476,
+      "y": 41.387847,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Ciutat Meridiana": {
+      "x": 2.1744,
+      "y": 41.4609,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Ciutat de la Justícia": {
+      "x": 2.133009,
+      "y": 41.363244,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Clot": {
+      "x": 2.1872,
+      "y": 41.4108,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Collblanc": {
+      "x": 2.118405,
+      "y": 41.375874,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Congrés": {
+      "x": 2.181285,
+      "y": 41.423416,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Cornellà Centre": {
+      "x": 2.070552,
+      "y": 41.357303,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Cornellà-Riera": {
+      "x": 2.070833,
+      "y": 41.351389,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Cèntric": {
+      "x": 2.093565,
+      "y": 41.321844,
+      "zone": "airport",
+      "transfer": false
+    },
+    "Diagonal": {
+      "x": 2.159963,
+      "y": 41.395956,
+      "zone": "business",
+      "transfer": true
+    },
+    "Drassanes": {
+      "x": 2.175774,
+      "y": 41.376673,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Ecoparc": {
+      "x": 2.13709,
+      "y": 41.330184,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "El Carmel": {
+      "x": 2.1551,
+      "y": 41.4236,
+      "zone": "residential",
+      "transfer": false
+    },
+    "El Coll-La Teixonera": {
+      "x": 2.149362,
+      "y": 41.421657,
+      "zone": "residential",
+      "transfer": false
+    },
+    "El Maresme-Fòrum": {
+      "x": 2.216678,
+      "y": 41.411775,
+      "zone": "residential",
+      "transfer": false
+    },
+    "El Prat Estació": {
+      "x": 2.090129,
+      "y": 41.331667,
+      "zone": "airport",
+      "transfer": false
+    },
+    "El Putxet": {
+      "x": 2.139159,
+      "y": 41.405812,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Encants": {
+      "x": 2.182523,
+      "y": 41.407075,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Entença": {
+      "x": 2.14496,
+      "y": 41.383982,
+      "zone": "business",
+      "transfer": false
+    },
+    "Ernest Lluch": {
+      "x": 2.11167,
+      "y": 41.37639,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Església Major": {
+      "x": 2.212402,
+      "y": 41.454759,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Espanya": {
+      "x": 2.149524,
+      "y": 41.375569,
+      "zone": "tourist",
+      "transfer": true
+    },
+    "Europa-Fira": {
+      "x": 2.12569,
+      "y": 41.357249,
+      "zone": "industrial",
+      "transfer": true
+    },
+    "Fabra i Puig": {
+      "x": 2.183639,
+      "y": 41.429781,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Fira": {
+      "x": 2.130679,
+      "y": 41.351923,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Florida": {
+      "x": 2.109832,
+      "y": 41.368323,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Foc": {
+      "x": 2.142162,
+      "y": 41.355851,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Fondo": {
+      "x": 2.218392,
+      "y": 41.451588,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Foneria": {
+      "x": 2.138656,
+      "y": 41.360457,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Fontana": {
+      "x": 2.152979,
+      "y": 41.402056,
+      "zone": "leisure",
+      "transfer": false
+    },
+    "Gavarra": {
+      "x": 2.079215,
+      "y": 41.357985,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Girona": {
+      "x": 2.17096,
+      "y": 41.395024,
+      "zone": "business",
+      "transfer": false
+    },
+    "Glòries": {
+      "x": 2.1872,
+      "y": 41.4029,
+      "zone": "business",
+      "transfer": false
+    },
+    "Gorg": {
+      "x": 2.233692,
+      "y": 41.440441,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Gornal": {
+      "x": 2.117073,
+      "y": 41.354775,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Gràcia": {
+      "x": 2.152155,
+      "y": 41.399757,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Guinardó-Hospital de Sant Pau": {
+      "x": 2.174364,
+      "y": 41.416042,
+      "zone": "hospital",
+      "transfer": false
+    },
+    "Horta": {
+      "x": 2.160316,
+      "y": 41.42969,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Hospital Clínic": {
+      "x": 2.150543,
+      "y": 41.388162,
+      "zone": "hospital",
+      "transfer": false
+    },
+    "Hospital de Bellvitge": {
+      "x": 2.107201,
+      "y": 41.34465,
+      "zone": "hospital",
+      "transfer": false
+    },
+    "Hostafrancs": {
+      "x": 2.143419,
+      "y": 41.375242,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Ildefons Cerdà": {
+      "x": 2.130169,
+      "y": 41.361165,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Jaume I": {
+      "x": 2.178706,
+      "y": 41.384001,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Joanic": {
+      "x": 2.16306,
+      "y": 41.40556,
+      "zone": "residential",
+      "transfer": false
+    },
+    "La Bonanova": {
+      "x": 2.136152,
+      "y": 41.397813,
+      "zone": "residential",
+      "transfer": false
+    },
+    "La Pau": {
+      "x": 2.205618,
+      "y": 41.424039,
+      "zone": "residential",
+      "transfer": true
+    },
+    "La Sagrera": {
+      "x": 2.187024,
+      "y": 41.422623,
+      "zone": "residential",
+      "transfer": true
+    },
+    "La Salut": {
+      "x": 2.224576,
+      "y": 41.442733,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Les Corts": {
+      "x": 2.130878,
+      "y": 41.384134,
+      "zone": "university",
+      "transfer": false
+    },
+    "Les Moreres": {
+      "x": 2.103072,
+      "y": 41.328985,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Les Tres Torres": {
+      "x": 2.13086,
+      "y": 41.397796,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Lesseps": {
+      "x": 2.150025,
+      "y": 41.406163,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Liceu": {
+      "x": 2.173071,
+      "y": 41.381396,
+      "zone": "tourist",
+      "transfer": false
+    },
+    "Llacuna": {
+      "x": 2.197649,
+      "y": 41.399381,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Llefià": {
+      "x": 2.217548,
+      "y": 41.441303,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Llucmajor": {
+      "x": 2.173364,
+      "y": 41.437009,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Magòria-La Campana": {
+      "x": 2.139368,
+      "y": 41.367858,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Maragall": {
+      "x": 2.176504,
+      "y": 41.425028,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Maria Cristina": {
+      "x": 2.126222,
+      "y": 41.38794,
+      "zone": "university",
+      "transfer": false
+    },
+    "Marina": {
+      "x": 2.1864,
+      "y": 41.3956,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Mas Blau": {
+      "x": 2.073422,
+      "y": 41.311319,
+      "zone": "airport",
+      "transfer": false
+    },
+    "Mercabarna": {
+      "x": 2.111229,
+      "y": 41.33357,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Mercat Nou": {
+      "x": 2.134034,
+      "y": 41.373553,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Molí Nou-Ciutat Cooperativa": {
+      "x": 2.035278,
+      "y": 41.357525,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Montbau": {
+      "x": 2.145035,
+      "y": 41.430595,
+      "zone": "leisure",
+      "transfer": false
+    },
+    "Monumental": {
+      "x": 2.179455,
+      "y": 41.400524,
+      "zone": "business",
+      "transfer": false
+    },
+    "Mundet": {
+      "x": 2.148383,
+      "y": 41.435542,
+      "zone": "leisure",
+      "transfer": false
+    },
+    "Muntaner": {
+      "x": 2.142791,
+      "y": 41.398686,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Navas": {
+      "x": 2.187,
+      "y": 41.4162,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Onze de Setembre": {
+      "x": 2.193435,
+      "y": 41.42976,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Palau Reial": {
+      "x": 2.117855,
+      "y": 41.385808,
+      "zone": "university",
+      "transfer": false
+    },
+    "Paral·lel": {
+      "x": 2.167774,
+      "y": 41.37518,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Parc Logístic": {
+      "x": 2.127983,
+      "y": 41.341806,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Parc Nou": {
+      "x": 2.087351,
+      "y": 41.316707,
+      "zone": "airport",
+      "transfer": false
+    },
+    "Passeig de Gràcia": {
+      "x": 2.168228,
+      "y": 41.389524,
+      "zone": "tourist",
+      "transfer": true
+    },
+    "Penitents": {
+      "x": 2.141133,
+      "y": 41.417541,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Pep Ventura": {
+      "x": 2.238052,
+      "y": 41.443939,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Plaça Molina": {
+      "x": 2.147424,
+      "y": 41.40132,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Plaça de Sants": {
+      "x": 2.137913,
+      "y": 41.375376,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Plaça del Centre": {
+      "x": 2.13563,
+      "y": 41.381821,
+      "zone": "business",
+      "transfer": false
+    },
+    "Poble Sec": {
+      "x": 2.160572,
+      "y": 41.37498,
+      "zone": "leisure",
+      "transfer": false
+    },
+    "Poblenou": {
+      "x": 2.203275,
+      "y": 41.403642,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Port Comercial-La Factoria": {
+      "x": 2.140666,
+      "y": 41.335984,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Provença": {
+      "x": 2.157979,
+      "y": 41.392874,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Provençana": {
+      "x": 2.124293,
+      "y": 41.361389,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Pubilla Cases": {
+      "x": 2.107121,
+      "y": 41.373813,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Pàdua": {
+      "x": 2.143059,
+      "y": 41.403326,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Rambla Just Oliveras": {
+      "x": 2.099872,
+      "y": 41.363965,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Rocafort": {
+      "x": 2.154573,
+      "y": 41.379237,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Roquetes": {
+      "x": 2.175783,
+      "y": 41.447355,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sagrada Família": {
+      "x": 2.174812,
+      "y": 41.40398,
+      "zone": "tourist",
+      "transfer": true
+    },
+    "Sant Andreu": {
+      "x": 2.1908,
+      "y": 41.4373,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sant Antoni": {
+      "x": 2.16327,
+      "y": 41.379786,
+      "zone": "business",
+      "transfer": false
+    },
+    "Sant Boi": {
+      "x": 2.043333,
+      "y": 41.348056,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sant Gervasi": {
+      "x": 2.147103,
+      "y": 41.401094,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sant Ildefons": {
+      "x": 2.084,
+      "y": 41.3628,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sant Josep": {
+      "x": 2.110361,
+      "y": 41.360951,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sant Martí": {
+      "x": 2.200731,
+      "y": 41.419057,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sant Pau-Dos de Maig": {
+      "x": 2.1753,
+      "y": 41.4102,
+      "zone": "hospital",
+      "transfer": false
+    },
+    "Sant Roc": {
+      "x": 2.227861,
+      "y": 41.435317,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Santa Coloma": {
+      "x": 2.208049,
+      "y": 41.451076,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Santa Eulàlia": {
+      "x": 2.128605,
+      "y": 41.368799,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Santa Rosa": {
+      "x": 2.2159,
+      "y": 41.4467,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Sants Estació": {
+      "x": 2.141114,
+      "y": 41.381469,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Sarrià": {
+      "x": 2.125702,
+      "y": 41.398604,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Selva de Mar": {
+      "x": 2.209109,
+      "y": 41.408015,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Singuerlín": {
+      "x": 2.205593,
+      "y": 41.459458,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Tarragona": {
+      "x": 2.145368,
+      "y": 41.378444,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Tetuan": {
+      "x": 2.174654,
+      "y": 41.395024,
+      "zone": "business",
+      "transfer": false
+    },
+    "Torras i Bages": {
+      "x": 2.190714,
+      "y": 41.443127,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Torrassa": {
+      "x": 2.116631,
+      "y": 41.368406,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Torre Baró-Vallbona": {
+      "x": 2.1799,
+      "y": 41.45958,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Trinitat Nova": {
+      "x": 2.184162,
+      "y": 41.449483,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Trinitat Vella": {
+      "x": 2.19361,
+      "y": 41.44889,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Universitat": {
+      "x": 2.164305,
+      "y": 41.385694,
+      "zone": "business",
+      "transfer": true
+    },
+    "Urgell": {
+      "x": 2.1587,
+      "y": 41.382647,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Urquinaona": {
+      "x": 2.173311,
+      "y": 41.388085,
+      "zone": "business",
+      "transfer": true
+    },
+    "Vall d'Hebron": {
+      "x": 2.1426,
+      "y": 41.4253,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Vallcarca": {
+      "x": 2.144524,
+      "y": 41.411907,
+      "zone": "leisure",
+      "transfer": false
+    },
+    "Valldaura": {
+      "x": 2.156876,
+      "y": 41.438004,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Verdaguer": {
+      "x": 2.168428,
+      "y": 41.400091,
+      "zone": "residential",
+      "transfer": true
+    },
+    "Verneda": {
+      "x": 2.209775,
+      "y": 41.42989,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Via Júlia": {
+      "x": 2.1789,
+      "y": 41.4439,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Vilapicina": {
+      "x": 2.168173,
+      "y": 41.43046,
+      "zone": "residential",
+      "transfer": false
+    },
+    "Virrei Amat": {
+      "x": 2.174999,
+      "y": 41.429594,
+      "zone": "residential",
+      "transfer": false
+    },
+    "ZAL-Riu Vell": {
+      "x": 2.133117,
+      "y": 41.323746,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Zona Franca": {
+      "x": 2.144972,
+      "y": 41.342985,
+      "zone": "industrial",
+      "transfer": false
+    },
+    "Zona Universitària": {
+      "x": 2.111686,
+      "y": 41.384244,
+      "zone": "university",
+      "transfer": true
+    }
+  },
+  "lines": {
+    "L1": {
+      "color": "#E2001A",
+      "segments": [
+        [
+          "Hospital de Bellvitge",
+          "Bellvitge"
+        ],
+        [
+          "Bellvitge",
+          "Avinguda Carrilet"
+        ],
+        [
+          "Avinguda Carrilet",
+          "Rambla Just Oliveras"
+        ],
+        [
+          "Rambla Just Oliveras",
+          "Can Serra"
+        ],
+        [
+          "Can Serra",
+          "Florida"
+        ],
+        [
+          "Florida",
+          "Torrassa"
+        ],
+        [
+          "Torrassa",
+          "Santa Eulàlia"
+        ],
+        [
+          "Santa Eulàlia",
+          "Mercat Nou"
+        ],
+        [
+          "Mercat Nou",
+          "Plaça de Sants"
+        ],
+        [
+          "Plaça de Sants",
+          "Hostafrancs"
+        ],
+        [
+          "Hostafrancs",
+          "Espanya"
+        ],
+        [
+          "Espanya",
+          "Rocafort"
+        ],
+        [
+          "Rocafort",
+          "Urgell"
+        ],
+        [
+          "Urgell",
+          "Universitat"
+        ],
+        [
+          "Universitat",
+          "Catalunya"
+        ],
+        [
+          "Catalunya",
+          "Urquinaona"
+        ],
+        [
+          "Urquinaona",
+          "Arc de Triomf"
+        ],
+        [
+          "Arc de Triomf",
+          "Marina"
+        ],
+        [
+          "Marina",
+          "Glòries"
+        ],
+        [
+          "Glòries",
+          "Clot"
+        ],
+        [
+          "Clot",
+          "Navas"
+        ],
+        [
+          "Navas",
+          "La Sagrera"
+        ],
+        [
+          "La Sagrera",
+          "Fabra i Puig"
+        ],
+        [
+          "Fabra i Puig",
+          "Sant Andreu"
+        ],
+        [
+          "Sant Andreu",
+          "Torras i Bages"
+        ],
+        [
+          "Torras i Bages",
+          "Trinitat Vella"
+        ],
+        [
+          "Trinitat Vella",
+          "Baró de Viver"
+        ],
+        [
+          "Baró de Viver",
+          "Santa Coloma"
+        ],
+        [
+          "Santa Coloma",
+          "Fondo"
+        ]
+      ]
+    },
+    "L2": {
+      "color": "#9B2791",
+      "segments": [
+        [
+          "Paral·lel",
+          "Sant Antoni"
+        ],
+        [
+          "Sant Antoni",
+          "Universitat"
+        ],
+        [
+          "Universitat",
+          "Passeig de Gràcia"
+        ],
+        [
+          "Passeig de Gràcia",
+          "Tetuan"
+        ],
+        [
+          "Tetuan",
+          "Monumental"
+        ],
+        [
+          "Monumental",
+          "Sagrada Família"
+        ],
+        [
+          "Sagrada Família",
+          "Encants"
+        ],
+        [
+          "Encants",
+          "Clot"
+        ],
+        [
+          "Clot",
+          "Bac de Roda"
+        ],
+        [
+          "Bac de Roda",
+          "Sant Martí"
+        ],
+        [
+          "Sant Martí",
+          "La Pau"
+        ],
+        [
+          "La Pau",
+          "Verneda"
+        ],
+        [
+          "Verneda",
+          "Artigues-Sant Adrià"
+        ],
+        [
+          "Artigues-Sant Adrià",
+          "Sant Roc"
+        ],
+        [
+          "Sant Roc",
+          "Gorg"
+        ],
+        [
+          "Gorg",
+          "Pep Ventura"
+        ],
+        [
+          "Pep Ventura",
+          "Badalona Pompeu Fabra"
+        ]
+      ]
+    },
+    "L3": {
+      "color": "#349036",
+      "segments": [
+        [
+          "Zona Universitària",
+          "Palau Reial"
+        ],
+        [
+          "Palau Reial",
+          "Maria Cristina"
+        ],
+        [
+          "Maria Cristina",
+          "Les Corts"
+        ],
+        [
+          "Les Corts",
+          "Plaça del Centre"
+        ],
+        [
+          "Plaça del Centre",
+          "Sants Estació"
+        ],
+        [
+          "Sants Estació",
+          "Tarragona"
+        ],
+        [
+          "Tarragona",
+          "Espanya"
+        ],
+        [
+          "Espanya",
+          "Poble Sec"
+        ],
+        [
+          "Poble Sec",
+          "Paral·lel"
+        ],
+        [
+          "Paral·lel",
+          "Drassanes"
+        ],
+        [
+          "Drassanes",
+          "Liceu"
+        ],
+        [
+          "Liceu",
+          "Catalunya"
+        ],
+        [
+          "Catalunya",
+          "Passeig de Gràcia"
+        ],
+        [
+          "Passeig de Gràcia",
+          "Diagonal"
+        ],
+        [
+          "Diagonal",
+          "Fontana"
+        ],
+        [
+          "Fontana",
+          "Lesseps"
+        ],
+        [
+          "Lesseps",
+          "Vallcarca"
+        ],
+        [
+          "Vallcarca",
+          "Penitents"
+        ],
+        [
+          "Penitents",
+          "Vall d'Hebron"
+        ],
+        [
+          "Vall d'Hebron",
+          "Montbau"
+        ],
+        [
+          "Montbau",
+          "Mundet"
+        ],
+        [
+          "Mundet",
+          "Valldaura"
+        ],
+        [
+          "Valldaura",
+          "Canyelles"
+        ],
+        [
+          "Canyelles",
+          "Roquetes"
+        ],
+        [
+          "Roquetes",
+          "Trinitat Nova"
+        ]
+      ]
+    },
+    "L4": {
+      "color": "#FFAA00",
+      "segments": [
+        [
+          "Trinitat Nova",
+          "Via Júlia"
+        ],
+        [
+          "Via Júlia",
+          "Llucmajor"
+        ],
+        [
+          "Llucmajor",
+          "Maragall"
+        ],
+        [
+          "Maragall",
+          "Guinardó-Hospital de Sant Pau"
+        ],
+        [
+          "Guinardó-Hospital de Sant Pau",
+          "Alfons X"
+        ],
+        [
+          "Alfons X",
+          "Joanic"
+        ],
+        [
+          "Joanic",
+          "Verdaguer"
+        ],
+        [
+          "Verdaguer",
+          "Girona"
+        ],
+        [
+          "Girona",
+          "Passeig de Gràcia"
+        ],
+        [
+          "Passeig de Gràcia",
+          "Urquinaona"
+        ],
+        [
+          "Urquinaona",
+          "Jaume I"
+        ],
+        [
+          "Jaume I",
+          "Barceloneta"
+        ],
+        [
+          "Barceloneta",
+          "Ciutadella-Vila Olímpica"
+        ],
+        [
+          "Ciutadella-Vila Olímpica",
+          "Bogatell"
+        ],
+        [
+          "Bogatell",
+          "Llacuna"
+        ],
+        [
+          "Llacuna",
+          "Poblenou"
+        ],
+        [
+          "Poblenou",
+          "Selva de Mar"
+        ],
+        [
+          "Selva de Mar",
+          "El Maresme-Fòrum"
+        ],
+        [
+          "El Maresme-Fòrum",
+          "Besòs Mar"
+        ],
+        [
+          "Besòs Mar",
+          "Besòs"
+        ],
+        [
+          "Besòs",
+          "La Pau"
+        ]
+      ]
+    },
+    "L5": {
+      "color": "#0078BE",
+      "segments": [
+        [
+          "Cornellà Centre",
+          "Gavarra"
+        ],
+        [
+          "Gavarra",
+          "Sant Ildefons"
+        ],
+        [
+          "Sant Ildefons",
+          "Can Boixeres"
+        ],
+        [
+          "Can Boixeres",
+          "Can Vidalet"
+        ],
+        [
+          "Can Vidalet",
+          "Pubilla Cases"
+        ],
+        [
+          "Pubilla Cases",
+          "Ernest Lluch"
+        ],
+        [
+          "Ernest Lluch",
+          "Collblanc"
+        ],
+        [
+          "Collblanc",
+          "Badal"
+        ],
+        [
+          "Badal",
+          "Plaça de Sants"
+        ],
+        [
+          "Plaça de Sants",
+          "Sants Estació"
+        ],
+        [
+          "Sants Estació",
+          "Entença"
+        ],
+        [
+          "Entença",
+          "Hospital Clínic"
+        ],
+        [
+          "Hospital Clínic",
+          "Diagonal"
+        ],
+        [
+          "Diagonal",
+          "Verdaguer"
+        ],
+        [
+          "Verdaguer",
+          "Sagrada Família"
+        ],
+        [
+          "Sagrada Família",
+          "Sant Pau-Dos de Maig"
+        ],
+        [
+          "Sant Pau-Dos de Maig",
+          "Camp de l'Arpa"
+        ],
+        [
+          "Camp de l'Arpa",
+          "La Sagrera"
+        ],
+        [
+          "La Sagrera",
+          "Congrés"
+        ],
+        [
+          "Congrés",
+          "Maragall"
+        ],
+        [
+          "Maragall",
+          "Virrei Amat"
+        ],
+        [
+          "Virrei Amat",
+          "Vilapicina"
+        ],
+        [
+          "Vilapicina",
+          "Horta"
+        ],
+        [
+          "Horta",
+          "El Carmel"
+        ],
+        [
+          "El Carmel",
+          "El Coll-La Teixonera"
+        ],
+        [
+          "El Coll-La Teixonera",
+          "Vall d'Hebron"
+        ]
+      ]
+    },
+    "L9 Nord": {
+      "color": "#F58220",
+      "segments": [
+        [
+          "La Sagrera",
+          "Onze de Setembre"
+        ],
+        [
+          "Onze de Setembre",
+          "Bon Pastor"
+        ],
+        [
+          "Bon Pastor",
+          "Can Peixauet"
+        ],
+        [
+          "Can Peixauet",
+          "Santa Rosa"
+        ],
+        [
+          "Santa Rosa",
+          "Fondo"
+        ],
+        [
+          "Fondo",
+          "Església Major"
+        ],
+        [
+          "Església Major",
+          "Singuerlín"
+        ],
+        [
+          "Singuerlín",
+          "Can Zam"
+        ]
+      ]
+    },
+    "L9 Sud": {
+      "color": "#F58220",
+      "segments": [
+        [
+          "Aeroport T1",
+          "Aeroport T2"
+        ],
+        [
+          "Aeroport T2",
+          "Mas Blau"
+        ],
+        [
+          "Mas Blau",
+          "Parc Nou"
+        ],
+        [
+          "Parc Nou",
+          "Cèntric"
+        ],
+        [
+          "Cèntric",
+          "El Prat Estació"
+        ],
+        [
+          "El Prat Estació",
+          "Les Moreres"
+        ],
+        [
+          "Les Moreres",
+          "Mercabarna"
+        ],
+        [
+          "Mercabarna",
+          "Parc Logístic"
+        ],
+        [
+          "Parc Logístic",
+          "Fira"
+        ],
+        [
+          "Fira",
+          "Europa-Fira"
+        ],
+        [
+          "Europa-Fira",
+          "Can Tries-Gornal"
+        ],
+        [
+          "Can Tries-Gornal",
+          "Torrassa"
+        ],
+        [
+          "Torrassa",
+          "Collblanc"
+        ],
+        [
+          "Collblanc",
+          "Zona Universitària"
+        ]
+      ]
+    },
+    "L10 Nord": {
+      "color": "#00ACED",
+      "segments": [
+        [
+          "La Sagrera",
+          "Onze de Setembre"
+        ],
+        [
+          "Onze de Setembre",
+          "Bon Pastor"
+        ],
+        [
+          "Bon Pastor",
+          "Llefià"
+        ],
+        [
+          "Llefià",
+          "La Salut"
+        ],
+        [
+          "La Salut",
+          "Gorg"
+        ]
+      ]
+    },
+    "L10 Sud": {
+      "color": "#00ACED",
+      "segments": [
+        [
+          "Collblanc",
+          "Torrassa"
+        ],
+        [
+          "Torrassa",
+          "Can Tries-Gornal"
+        ],
+        [
+          "Can Tries-Gornal",
+          "Provençana"
+        ],
+        [
+          "Provençana",
+          "Ciutat de la Justícia"
+        ],
+        [
+          "Ciutat de la Justícia",
+          "Foneria"
+        ],
+        [
+          "Foneria",
+          "Foc"
+        ],
+        [
+          "Foc",
+          "Zona Franca"
+        ],
+        [
+          "Zona Franca",
+          "Port Comercial-La Factoria"
+        ],
+        [
+          "Port Comercial-La Factoria",
+          "Ecoparc"
+        ],
+        [
+          "Ecoparc",
+          "ZAL-Riu Vell"
+        ]
+      ]
+    },
+    "L11": {
+      "color": "#8FD400",
+      "segments": [
+        [
+          "Trinitat Nova",
+          "Casa de l'Aigua"
+        ],
+        [
+          "Casa de l'Aigua",
+          "Torre Baró-Vallbona"
+        ],
+        [
+          "Torre Baró-Vallbona",
+          "Ciutat Meridiana"
+        ],
+        [
+          "Ciutat Meridiana",
+          "Can Cuiàs"
+        ]
+      ]
+    },
+    "L6": {
+      "color": "#7B76A8",
+      "segments": [
+        [
+          "Catalunya",
+          "Provença"
+        ],
+        [
+          "Provença",
+          "Gràcia"
+        ],
+        [
+          "Gràcia",
+          "Sant Gervasi"
+        ],
+        [
+          "Sant Gervasi",
+          "Muntaner"
+        ],
+        [
+          "Muntaner",
+          "La Bonanova"
+        ],
+        [
+          "La Bonanova",
+          "Les Tres Torres"
+        ],
+        [
+          "Les Tres Torres",
+          "Sarrià"
+        ]
+      ]
+    },
+    "L7": {
+      "color": "#9B6733",
+      "segments": [
+        [
+          "Catalunya",
+          "Provença"
+        ],
+        [
+          "Provença",
+          "Gràcia"
+        ],
+        [
+          "Gràcia",
+          "Plaça Molina"
+        ],
+        [
+          "Plaça Molina",
+          "Pàdua"
+        ],
+        [
+          "Pàdua",
+          "El Putxet"
+        ],
+        [
+          "El Putxet",
+          "Avinguda Tibidabo"
+        ]
+      ]
+    },
+    "L8": {
+      "color": "#EA6BA5",
+      "segments": [
+        [
+          "Espanya",
+          "Magòria-La Campana"
+        ],
+        [
+          "Magòria-La Campana",
+          "Ildefons Cerdà"
+        ],
+        [
+          "Ildefons Cerdà",
+          "Europa-Fira"
+        ],
+        [
+          "Europa-Fira",
+          "Gornal"
+        ],
+        [
+          "Gornal",
+          "Sant Josep"
+        ],
+        [
+          "Sant Josep",
+          "Avinguda Carrilet"
+        ],
+        [
+          "Avinguda Carrilet",
+          "Almeda"
+        ],
+        [
+          "Almeda",
+          "Cornellà-Riera"
+        ],
+        [
+          "Cornellà-Riera",
+          "Sant Boi"
+        ],
+        [
+          "Sant Boi",
+          "Molí Nou-Ciutat Cooperativa"
+        ]
+      ]
+    }
+  }
+}

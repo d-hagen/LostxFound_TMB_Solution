@@ -1,0 +1,12 @@
+Device: cpu
+epoch  0  E[hops]=9.13  (random init)
+epoch  1  E[hops]=4.33  top1=0.184
+epoch  3  E[hops]=3.81  top1=0.258
+epoch 10  E[hops]=3.45  top1=0.282
+epoch 25  E[hops]=3.36  top1=0.292
+epoch 40  E[hops]=3.35  top1=0.285
+
+t-SNE-projecting all snapshots…
+
+Saved → artifacts/training_evolution.png
+Saved → artifacts/predicted_pickup_example.png

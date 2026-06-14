@@ -1,0 +1,16 @@
+Device: cpu
+Re-training v2 full model briefly to obtain weights...
+Trained 40 epochs; best val CE = 2.9855
+
+=== Lambda sweep: passenger vs operator cost ===
+  lambda    E[hops]   move_cost   coverage
+--------------------------------------------
+    0.00      3.364       0.190      0.516
+    0.25      3.360       0.152      0.516
+    0.50      3.368       0.126      0.516
+    1.00      3.378       0.100      0.529
+    2.00      3.409       0.083      0.548
+    5.00      3.478       0.052      0.605
+   10.00      3.597       0.034      0.739
+
+Saved → artifacts/models_v2/lambda_sweep.json

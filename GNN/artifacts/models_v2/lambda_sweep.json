@@ -1,0 +1,44 @@
+[
+  {
+    "lambda": 0.0,
+    "E_hops_realised": 3.364000082015991,
+    "move_cost_realised": 0.18975000083446503,
+    "coverage": 0.5159235668789809
+  },
+  {
+    "lambda": 0.25,
+    "E_hops_realised": 3.359800100326538,
+    "move_cost_realised": 0.15166999399662018,
+    "coverage": 0.5159235668789809
+  },
+  {
+    "lambda": 0.5,
+    "E_hops_realised": 3.3684000968933105,
+    "move_cost_realised": 0.12598000466823578,
+    "coverage": 0.5159235668789809
+  },
+  {
+    "lambda": 1.0,
+    "E_hops_realised": 3.378200054168701,
+    "move_cost_realised": 0.10006000101566315,
+    "coverage": 0.5286624203821656
+  },
+  {
+    "lambda": 2.0,
+    "E_hops_realised": 3.408600091934204,
+    "move_cost_realised": 0.08252999931573868,
+    "coverage": 0.5477707006369427
+  },
+  {
+    "lambda": 5.0,
+    "E_hops_realised": 3.477799892425537,
+    "move_cost_realised": 0.05243000388145447,
+    "coverage": 0.6050955414012739
+  },
+  {
+    "lambda": 10.0,
+    "E_hops_realised": 3.597399950027466,
+    "move_cost_realised": 0.03426000475883484,
+    "coverage": 0.7388535031847133
+  }
+]

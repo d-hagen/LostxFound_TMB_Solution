@@ -1,0 +1,22 @@
+Stations held out: 24
+Events: train=36776  warm-val=4086  cold=9138
+
+[MLP] training on warm only...
+  warm: top1=0.296 E[hops]=3.44
+  COLD: top1=0.129 E[hops]=5.54  (3.0s)
+
+[LogReg] training on warm only...
+  warm: top1=0.289 E[hops]=3.62
+  COLD: top1=0.125 E[hops]=5.03  (7.3s)
+
+Saved → artifacts/ml_baselines_coldstart.json
+
+=== Cold-test comparison (events touching unseen stations) ===
+model                     top1    top5   E[hops]
+------------------------------------------------
+GNN (full)               0.196   0.446      4.14
+GNN (no message pass.)   0.136   0.255      4.78
+MLP                      0.129   0.313      5.54
+LogReg                   0.125   0.315      5.03
+baseline: same_station       —       —      4.81
+baseline: mode_lookup        —       —      5.03

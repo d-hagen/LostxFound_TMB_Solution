@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TMB Objectes Perduts</title>
+  <style>
+    :root {
+      --tmb-red: #ED1B2E;
+      --tmb-red-dark: #c81525;
+      --tmb-red-light: #F7A59A;
+      --tmb-bg: #f5f5f5;
+      --tmb-white: #ffffff;
+      --tmb-black: #1a1a1a;
+      --tmb-grey: #6b7280;
+      --tmb-grey-light: #e5e7eb;
+      --tmb-grey-lighter: #f0f1f3;
+      --tmb-border: #d1d5db;
+      --tmb-success: #16a34a;
+      --tmb-success-bg: #f0fdf4;
+      --tmb-error: #dc2626;
+      --tmb-error-bg: #fef2f2;
+      --tmb-info: #1a3d6b;
+      --tmb-info-bg: #eff6ff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--tmb-bg); color: var(--tmb-black);
+      min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    }
+    .header {
+      width: 100%; background: var(--tmb-red); color: var(--tmb-white);
+      padding: 1rem 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .header-logo { font-size: 1.6rem; font-weight: 800; letter-spacing: 0.05em; }
+    .header-subtitle { font-size: 0.9rem; opacity: 0.9; font-weight: 400; }
+    .header-divider { width: 2px; height: 28px; background: rgba(255,255,255,0.4); }
+    .container { width: 100%; max-width: 720px; padding: 1.5rem 1rem 2rem; }
+    /* Database table needs more horizontal room — widen the container only
+       when that screen is active so the table is centered, not clipped. */
+    .container:has(#dbScreen.active) { max-width: 1200px; }
+    #entries { overflow-x: auto; }
+
+    .tabs {
+      display: flex; gap: 0; margin-bottom: 1.5rem; background: var(--tmb-white);
+      border-radius: 8px; overflow: hidden; border: 1px solid var(--tmb-border);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .tab {
+      flex: 1; padding: 0.7rem 1rem; cursor: pointer; font-weight: 600; font-size: 0.9rem;
+      color: var(--tmb-grey); background: var(--tmb-white); border: none;
+      transition: all 0.2s; text-align: center;
+    }
+    .tab:not(:last-child) { border-right: 1px solid var(--tmb-border); }
+    .tab:hover { background: var(--tmb-grey-lighter); color: var(--tmb-black); }
+    .tab.active { background: var(--tmb-red); color: var(--tmb-white); }
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    form {
+      background: var(--tmb-white); border: 1px solid var(--tmb-border); border-radius: 8px;
+      padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    label {
+      font-size: 0.8rem; font-weight: 600; color: var(--tmb-grey);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    input, select, textarea {
+      width: 100%; padding: 0.6rem 0.8rem;
+      background: var(--tmb-white); border: 1px solid var(--tmb-border); border-radius: 6px;
+      color: var(--tmb-black); font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--tmb-red); box-shadow: 0 0 0 2px rgba(237,27,46,0.15); }
+    .field { display: flex; flex-direction: column; gap: 0.3rem; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    button[type="submit"] {
+      padding: 0.75rem; background: var(--tmb-red); color: var(--tmb-white); border: none;
+      border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s;
+    }
+    button[type="submit"]:hover { background: var(--tmb-red-dark); }
+    button[type="submit"]:disabled { background: var(--tmb-grey-light); color: var(--tmb-grey); cursor: not-allowed; }
+
+    .status-msg {
+      margin-top: 0.75rem; padding: 0.6rem; border-radius: 6px; font-size: 0.9rem; display: none;
+    }
+    .status-msg.ok  { display: block; background: var(--tmb-success-bg); border: 1px solid var(--tmb-success); color: var(--tmb-success); }
+    .status-msg.err { display: block; background: var(--tmb-error-bg); border: 1px solid var(--tmb-error); color: var(--tmb-error); }
+
+    h2 { margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem; color: var(--tmb-black); }
+
+    table {
+      width: 100%; border-collapse: collapse; background: var(--tmb-white);
+      border: 1px solid var(--tmb-border); border-radius: 8px; overflow: hidden;
+      font-size: 0.85rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    th {
+      background: var(--tmb-red); color: var(--tmb-white); text-align: left;
+      padding: 0.55rem 0.6rem; font-weight: 600; text-transform: uppercase;
+      font-size: 0.7rem; letter-spacing: 0.04em;
+    }
+    td { padding: 0.5rem 0.6rem; border-top: 1px solid var(--tmb-grey-light); }
+    tr:hover td { background: var(--tmb-grey-lighter); }
+    .empty-msg { text-align: center; color: var(--tmb-grey); padding: 2rem; font-style: italic; }
+    .delete-btn {
+      background: var(--tmb-error-bg); border: 1px solid var(--tmb-error);
+      color: var(--tmb-error); cursor: pointer; font-size: 0.8rem;
+      font-weight: 600; padding: 4px 10px; border-radius: 4px;
+    }
+    .delete-btn:hover { background: var(--tmb-error); color: #fff; }
+
+    #detectBtn {
+      padding: 0.7rem; background: var(--tmb-black); color: var(--tmb-white); border: none;
+      border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; width: 100%;
+    }
+    #detectBtn:hover { background: #333; }
+    #detectBtn:disabled { background: var(--tmb-grey-light); color: var(--tmb-grey); }
+    .upload-btn {
+      padding: 0.7rem; background: var(--tmb-grey); color: var(--tmb-white); border: none;
+      border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer; text-align: center;
+    }
+    .upload-btn:hover { background: #555; }
+    .detect-status { font-size: 0.85rem; color: var(--tmb-grey); text-align: center; min-height: 0; display: none; }
+    .detect-status.active { display: block; }
+    #cameraBox {
+      display: none; flex-direction: column; gap: 0.75rem; align-items: center;
+      background: var(--tmb-grey-lighter); border: 1px solid var(--tmb-border); border-radius: 8px;
+      padding: 1rem; margin-top: 0.5rem;
+    }
+    #cameraBox.active { display: flex; }
+    #cameraVideo { width: 100%; max-width: 480px; border-radius: 6px; background: #000; }
+    #cameraVideo.hidden { display: none; }
+    #capturePreview {
+      display: none; width: 100%; max-width: 480px; border-radius: 6px;
+      background: #fafafa; border: 1px solid var(--tmb-grey-light);
+    }
+    #capturePreview.active { display: block; }
+    #captureBtn, #retakeBtn {
+      padding: 0.5rem 1.5rem; background: var(--tmb-red); color: var(--tmb-white);
+      border: none; border-radius: 6px; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    }
+    #captureBtn:hover, #retakeBtn:hover { background: var(--tmb-red-dark); }
+    #retakeBtn { display: none; background: var(--tmb-grey); }
+    #retakeBtn.active { display: inline-block; }
+    #retakeBtn:hover { background: #555; }
+    #cameraCanvas { display: none; }
+    .photo-attached {
+      display: block; padding: 0.5rem 0.7rem; background: var(--tmb-success-bg);
+      border: 1px solid var(--tmb-success); color: var(--tmb-success);
+      border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-align: center;
+    }
+    #detectStatus { font-size: 0.85rem; color: var(--tmb-grey); text-align: center; min-height: 1.2em; }
+    .pulse { animation: pulse 1.2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    .link-banner {
+      background: var(--tmb-success-bg); border: 1px solid var(--tmb-success); border-radius: 8px;
+      padding: 1rem; display: none; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem;
+    }
+    .link-banner.active { display: flex; }
+    .link-banner p { color: var(--tmb-success); font-size: 0.95rem; font-weight: 500; }
+    .link-banner .link-actions { display: flex; gap: 0.5rem; }
+    .link-btn { padding: 0.5rem 1rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+    .link-btn-add { background: var(--tmb-red); color: var(--tmb-white); }
+    .link-btn-add:hover { background: var(--tmb-red-dark); }
+    .link-btn-done { background: var(--tmb-grey-light); color: var(--tmb-black); }
+    .link-btn-done:hover { background: var(--tmb-border); }
+
+    .conn-id {
+      display: inline-block; background: rgba(237,27,46,0.1); color: var(--tmb-red);
+      border-radius: 3px; padding: 1px 5px; font-size: 0.8rem; margin: 1px; font-weight: 600;
+    }
+
+    /* ─── Routing card (after item saved) ─── */
+    .routing-card {
+      margin-top: 1rem; background: var(--tmb-white); border: 1px solid var(--tmb-info);
+      border-radius: 10px; padding: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .routing-card.hidden { display: none; }
+    .routing-header { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .routing-title { font-size: 1rem; font-weight: 700; color: var(--tmb-info); }
+    .routing-sub { font-size: 0.8rem; color: var(--tmb-grey); }
+    .routing-pill {
+      display: inline-block; padding: 4px 10px; background: var(--tmb-info-bg);
+      color: var(--tmb-info); border-radius: 999px; font-weight: 700; font-size: 0.9rem;
+    }
+    .routing-meta { display: flex; gap: 1.25rem; margin-top: 0.4rem; font-size: 0.85rem; color: var(--tmb-grey); }
+    .routing-meta b { color: var(--tmb-black); font-weight: 600; }
+    .map-wrap { margin-top: 0.75rem; border: 1px solid var(--tmb-grey-light); border-radius: 8px; background: #FAFAF6; overflow: hidden; }
+    svg.metro-map { display: block; width: 100%; height: 360px; }
+
+    /* ─── Chat ─── */
+    .chat-container {
+      background: var(--tmb-white); border: 1px solid var(--tmb-border); border-radius: 8px;
+      display: flex; flex-direction: column; height: 520px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .chat-messages {
+      flex: 1; overflow-y: auto; padding: 1rem; display: flex;
+      flex-direction: column; gap: 0.75rem; background: var(--tmb-grey-lighter);
+    }
+    .chat-msg { max-width: 85%; padding: 0.6rem 0.9rem; border-radius: 12px; font-size: 0.95rem; line-height: 1.45; word-wrap: break-word; }
+    .chat-msg.user { align-self: flex-end; background: var(--tmb-red); color: var(--tmb-white); border-bottom-right-radius: 4px; }
+    .chat-msg.assistant { align-self: flex-start; background: var(--tmb-white); color: var(--tmb-black); border: 1px solid var(--tmb-border); border-bottom-left-radius: 4px; }
+    .chat-msg.thinking { align-self: flex-start; background: var(--tmb-white); color: var(--tmb-grey); border: 1px solid var(--tmb-border); font-style: italic; }
+    .chat-msg.reminder { align-self: flex-start; background: var(--tmb-success-bg); color: #14532d; border: 1px solid var(--tmb-success); font-size: 0.88rem; }
+    .chat-input-row { display: flex; gap: 0.5rem; padding: 0.75rem; border-top: 1px solid var(--tmb-border); }
+    .chat-input-row input { flex: 1; border-radius: 20px; padding: 0.5rem 1rem; border: 1px solid var(--tmb-border); }
+    .chat-send { background: var(--tmb-red); color: var(--tmb-white); border: none; border-radius: 20px; padding: 0.5rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+    .chat-send:hover { background: var(--tmb-red-dark); }
+    .chat-send:disabled { background: var(--tmb-grey-light); color: var(--tmb-grey); cursor: not-allowed; }
+    .chat-new { background: var(--tmb-grey-light); color: var(--tmb-grey); border: none; border-radius: 20px; padding: 0.5rem 0.8rem; cursor: pointer; font-size: 0.8rem; }
+    .chat-new:hover { background: var(--tmb-border); color: var(--tmb-black); }
+
+    /* ─── Photo confirmation card (Find tab) ─── */
+    .confirm-card {
+      align-self: flex-start; max-width: 90%; background: var(--tmb-white);
+      border: 1px solid var(--tmb-border); border-radius: 12px; padding: 0.75rem;
+      display: flex; flex-direction: column; gap: 0.6rem;
+    }
+    .confirm-card img { width: 100%; max-width: 280px; border-radius: 8px; background: #fff; }
+    .confirm-q { font-size: 0.92rem; font-weight: 600; }
+    .confirm-actions { display: flex; gap: 0.5rem; }
+    .confirm-btn { flex: 1; padding: 0.55rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.9rem; }
+    .confirm-yes { background: var(--tmb-success); color: var(--tmb-white); }
+    .confirm-yes:hover { background: #128a3d; }
+    .confirm-no { background: var(--tmb-grey-light); color: var(--tmb-black); }
+    .confirm-no:hover { background: var(--tmb-border); }
+
+    /* ─── Pickup ticket ─── */
+    .ticket {
+      align-self: flex-start; max-width: 92%; background: var(--tmb-white);
+      border: 2px dashed var(--tmb-info); border-radius: 12px; padding: 1rem;
+      display: flex; flex-direction: column; gap: 0.45rem;
+    }
+    .ticket-title { font-weight: 800; color: var(--tmb-info); font-size: 1rem; }
+    .ticket-row { font-size: 0.92rem; }
+    .ticket-row b { font-weight: 700; }
+    .ticket-code {
+      display: inline-block; background: var(--tmb-info-bg); color: var(--tmb-info);
+      padding: 2px 8px; border-radius: 6px; font-weight: 800; letter-spacing: 0.05em;
+    }
+
+    /* ─── Banner (uncollected items) ─── */
+    .claims-banner {
+      margin-bottom: 0.75rem; padding: 0.6rem 0.8rem;
+      background: var(--tmb-info-bg); border: 1px solid var(--tmb-info);
+      color: var(--tmb-info); border-radius: 8px; font-size: 0.9rem;
+      display: none; justify-content: space-between; align-items: center;
+    }
+    .claims-banner.active { display: flex; }
+    .claims-banner a { color: var(--tmb-info); font-weight: 700; cursor: pointer; text-decoration: underline; }
+
+    /* ─── Claimed tab ─── */
+    .claim-card {
+      background: var(--tmb-white); border: 1px solid var(--tmb-border); border-radius: 10px;
+      padding: 1rem; margin-bottom: 0.75rem; display: grid;
+      grid-template-columns: 90px 1fr; gap: 0.85rem; align-items: start;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .claim-card img { width: 90px; height: 90px; object-fit: cover; border-radius: 8px; background: #fafafa; border: 1px solid var(--tmb-grey-light); }
+    .claim-body { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.9rem; }
+    .claim-title { font-weight: 700; font-size: 1rem; }
+    .claim-meta { color: var(--tmb-grey); }
+    .claim-meta b { color: var(--tmb-black); font-weight: 600; }
+    .claim-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+    .claim-btn { padding: 0.45rem 0.9rem; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+    .claim-btn-extend { background: var(--tmb-grey-light); color: var(--tmb-black); }
+    .claim-btn-extend:hover { background: var(--tmb-border); }
+    .claim-btn-extend:disabled { opacity: 0.5; cursor: not-allowed; }
+    .claim-btn-collect { background: var(--tmb-success); color: var(--tmb-white); }
+    .claim-btn-collect:hover { background: #128a3d; }
+    .expiry-badge {
+      display: inline-block; padding: 2px 7px; border-radius: 999px;
+      font-size: 0.75rem; font-weight: 700; background: var(--tmb-success-bg); color: #14532d;
+    }
+    .expiry-badge.warn { background: #fff7ed; color: #9a3412; }
+    .expiry-badge.expired { background: var(--tmb-error-bg); color: var(--tmb-error); }
+
+    .tab-badge {
+      display: inline-block; background: rgba(255,255,255,0.3);
+      color: inherit; border-radius: 10px; padding: 0 6px;
+      font-size: 0.75rem; margin-left: 4px; font-weight: 700;
+    }
+    .tab:not(.active) .tab-badge { background: var(--tmb-grey-light); color: var(--tmb-grey); }
+
+    /* ─── Modal ─── */
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+      display: none; align-items: center; justify-content: center;
+      z-index: 1000; padding: 1rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-card {
+      background: var(--tmb-white); border-radius: 12px; padding: 1.5rem;
+      max-width: 460px; width: 100%; max-height: 90vh; overflow-y: auto;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.3);
+      display: flex; flex-direction: column; gap: 0.9rem;
+    }
+    .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--tmb-black); }
+    .modal-body { font-size: 0.92rem; line-height: 1.45; color: var(--tmb-black); }
+    .modal-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.4rem; }
+    .modal-btn {
+      padding: 0.55rem 1rem; border: none; border-radius: 6px;
+      font-weight: 600; cursor: pointer; font-size: 0.9rem;
+    }
+    .modal-btn-primary { background: var(--tmb-success); color: var(--tmb-white); }
+    .modal-btn-primary:hover { background: #128a3d; }
+    .modal-btn-danger  { background: var(--tmb-error); color: var(--tmb-white); }
+    .modal-btn-danger:hover  { background: #b91c1c; }
+    .modal-btn-ghost   { background: var(--tmb-grey-light); color: var(--tmb-black); }
+    .modal-btn-ghost:hover   { background: var(--tmb-border); }
+
+    .q-section { display: flex; flex-direction: column; gap: 0.4rem; }
+    .q-label { font-size: 0.78rem; font-weight: 700; color: var(--tmb-grey);
+               text-transform: uppercase; letter-spacing: 0.04em; }
+    .q-help  { font-size: 0.78rem; color: var(--tmb-grey); }
+    .q-yesno { display: flex; gap: 0.5rem; }
+    .q-yesno button {
+      flex: 1; padding: 0.5rem; border: 1px solid var(--tmb-border);
+      background: var(--tmb-white); border-radius: 6px; cursor: pointer;
+      font-weight: 600; font-size: 0.9rem; color: var(--tmb-grey);
+    }
+    .q-yesno button.selected.yes { background: var(--tmb-success); color: #fff; border-color: var(--tmb-success); }
+    .q-yesno button.selected.no  { background: var(--tmb-error);   color: #fff; border-color: var(--tmb-error); }
+    .q-pref-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+    .q-lost-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+
+    /* ─── Combobox (searchable dropdown) ─── */
+    .combobox { position: relative; width: 100%; }
+    .combobox .cb-input {
+      width: 100%; padding: 0.6rem 0.8rem;
+      background: var(--tmb-white); border: 1px solid var(--tmb-border); border-radius: 6px;
+      color: var(--tmb-black); font-size: 0.95rem; outline: none; transition: border-color 0.2s;
+      padding-right: 2rem;
+    }
+    .combobox .cb-input:focus { border-color: var(--tmb-red); box-shadow: 0 0 0 2px rgba(237,27,46,0.15); }
+    .combobox .cb-chevron {
+      position: absolute; right: 0.6rem; top: 50%; transform: translateY(-50%);
+      pointer-events: none; color: var(--tmb-grey); font-size: 0.7rem;
+    }
+    .combobox .cb-clear {
+      position: absolute; right: 1.7rem; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--tmb-grey);
+      font-size: 1rem; padding: 0 4px; display: none;
+    }
+    .combobox .cb-clear.active { display: inline-block; }
+    .combobox .cb-clear:hover { color: var(--tmb-error); }
+    .combobox .cb-panel {
+      position: absolute; top: calc(100% + 4px); left: 0; right: 0;
+      background: var(--tmb-white); border: 1px solid var(--tmb-border);
+      border-radius: 6px; box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      max-height: 240px; overflow-y: auto; z-index: 50;
+      display: none;
+    }
+    .combobox .cb-panel.open { display: block; }
+    .combobox .cb-opt {
+      padding: 0.5rem 0.75rem; cursor: pointer; font-size: 0.92rem;
+      color: var(--tmb-black); border-bottom: 1px solid var(--tmb-grey-lighter);
+    }
+    .combobox .cb-opt:last-child { border-bottom: none; }
+    .combobox .cb-opt:hover, .combobox .cb-opt.hl { background: var(--tmb-info-bg); }
+    .combobox .cb-opt .cb-tag {
+      display: inline-block; padding: 1px 6px; border-radius: 3px;
+      font-size: 0.7rem; font-weight: 700; margin-left: 6px;
+      color: var(--tmb-white);
+    }
+    .combobox .cb-empty {
+      padding: 0.6rem 0.75rem; font-size: 0.88rem; color: var(--tmb-grey); font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="header-logo">TMB</span>
+    <span class="header-divider"></span>
+    <span class="header-subtitle" id="headerSubtitle">Objectes Perduts</span>
+  </div>
+
+  <div class="container">
+    <div class="tabs" id="tabs"></div>
+
+    <!-- ═══════ ADD ITEM (employee) ═══════ -->
+    <div id="catalogScreen" class="screen">
+      <div class="link-banner" id="linkBanner">
+        <p id="linkMsg">Item saved! Want to add connected items (e.g. items inside a bag)?</p>
+        <div class="link-actions">
+          <button class="link-btn link-btn-add" id="linkAddBtn">Add Connected Item</button>
+          <button class="link-btn link-btn-done" id="linkDoneBtn">Done</button>
+        </div>
+      </div>
+
+      <form id="entryForm">
+        <div class="row">
+          <button type="button" id="detectBtn">Detect (Camera)</button>
+          <label class="upload-btn">
+            Upload Photo
+            <input type="file" id="uploadInput" accept="image/*" hidden>
+          </label>
+        </div>
+        <div id="uploadStatus" class="detect-status"></div>
+        <div id="cameraBox">
+          <video id="cameraVideo" autoplay playsinline></video>
+          <canvas id="cameraCanvas"></canvas>
+          <img id="capturePreview" alt="captured photo">
+          <button type="button" id="captureBtn">Capture &amp; Detect</button>
+          <button type="button" id="retakeBtn">Retake</button>
+          <div id="detectStatus"></div>
+        </div>
+        <div id="photoStatus" class="detect-status"></div>
+
+        <div class="row">
+          <div class="field">
+            <label>Station</label>
+            <div id="stationHost"></div>
+          </div>
+          <div class="field">
+            <label>Line</label>
+            <div id="lineHost"></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="item_type">Item Type</label>
+          <input type="text" id="item_type" name="item_type" placeholder="e.g. Blue backpack, Canon camera" required>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="main_color">Main Color</label>
+            <input type="text" id="main_color" name="main_color">
+          </div>
+          <div class="field">
+            <label for="secondary_colors">Secondary Colors</label>
+            <input type="text" id="secondary_colors" name="secondary_colors">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="perks">Perks / Features</label>
+            <input type="text" id="perks" name="perks">
+          </div>
+          <div class="field">
+            <label for="time">Time Found</label>
+            <input type="datetime-local" id="time" name="time" required>
+          </div>
+        </div>
+
+        <button type="submit" id="submitBtn">Add Entry</button>
+        <div id="status" class="status-msg"></div>
+      </form>
+
+      <!-- GNN routing card -->
+      <div id="routingCard" class="routing-card hidden">
+        <div class="routing-header">
+          <div>
+            <div class="routing-title">📦 Item rerouted by GNN</div>
+            <div class="routing-sub" id="routingSub"></div>
+          </div>
+          <span class="routing-pill" id="routingStation"></span>
+        </div>
+        <div class="routing-meta">
+          <span>Arriving <b id="routingArrival">—</b></span>
+          <span>Available until <b id="routingExpires">—</b></span>
+          <span>E[hops] <b id="routingEhops">—</b></span>
+        </div>
+        <div class="map-wrap">
+          <svg class="metro-map" id="metroMap" preserveAspectRatio="xMidYMid meet"></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ FIND (user) ═══════ -->
+    <div id="findScreen" class="screen">
+      <div class="claims-banner" id="claimsBanner">
+        <span id="claimsBannerText"></span>
+        <a id="claimsBannerLink">View →</a>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-msg assistant">Hello! Describe the item you're looking for — type, colors, when and where you lost it, and any distinguishing features.</div>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="Describe the lost item..." autocomplete="off">
+          <button class="chat-send" id="chatSend">Send</button>
+          <button class="chat-new" id="chatNew" title="Start over">New</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ DATABASE (employee) ═══════ -->
+    <div id="dbScreen" class="screen">
+      <div id="entries"></div>
+    </div>
+
+    <!-- ═══════ CLAIMED (user) ═══════ -->
+    <div id="claimedScreen" class="screen">
+      <div id="claimedList"></div>
+    </div>
+  </div>
+
+  <!-- Modal for collect-confirm + questionnaire -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card" id="modalCard"></div>
+  </div>
+
+  <script>
+    // ─── Combobox factory ─────────────────────────────────────
+    // options: array of strings, or array of { value, tag, tagColor }
+    function makeCombobox({ host, name, placeholder, options = [], required = false,
+                            onChange = null, allowFree = false }) {
+      const wrap = document.createElement('div');
+      wrap.className = 'combobox';
+      wrap.innerHTML = `
+        <input type="text" class="cb-input" placeholder="${placeholder || ''}" autocomplete="off"${required ? ' required' : ''}>
+        <button type="button" class="cb-clear" title="Clear">×</button>
+        <span class="cb-chevron">▾</span>
+        <div class="cb-panel"></div>
+        <input type="hidden" name="${name}" ${required ? 'required' : ''}>
+      `;
+      host.innerHTML = '';
+      host.appendChild(wrap);
+
+      const input  = wrap.querySelector('.cb-input');
+      const panel  = wrap.querySelector('.cb-panel');
+      const hidden = wrap.querySelector('input[type="hidden"]');
+      const clear  = wrap.querySelector('.cb-clear');
+      let all = options.map(o => typeof o === 'string' ? { value: o } : o);
+      let hl = -1;
+
+      function filteredList(q) {
+        q = (q || '').toLowerCase();
+        if (!q) return all;
+        return all.filter(o => o.value.toLowerCase().includes(q));
+      }
+      function render() {
+        const list = filteredList(input.value);
+        if (!list.length) {
+          panel.innerHTML = '<div class="cb-empty">No matches</div>';
+          return;
+        }
+        panel.innerHTML = list.map((o, i) => {
+          const tag = o.tag
+            ? `<span class="cb-tag" style="background:${o.tagColor || '#888'}">${esc(o.tag)}</span>`
+            : '';
+          return `<div class="cb-opt ${i === hl ? 'hl' : ''}" data-val="${esc(o.value)}">${esc(o.value)}${tag}</div>`;
+        }).join('');
+      }
+      function open()  { panel.classList.add('open'); render(); }
+      function close() { panel.classList.remove('open'); }
+      function syncClear() {
+        clear.classList.toggle('active', !!input.value);
+      }
+      function pick(val) {
+        input.value = val;
+        hidden.value = val;
+        syncClear();
+        close();
+        if (onChange) onChange(val);
+      }
+      input.addEventListener('focus', open);
+      input.addEventListener('input', () => {
+        hl = -1; syncClear();
+        if (allowFree) hidden.value = input.value;
+        else hidden.value = '';
+        render(); open();
+      });
+      input.addEventListener('keydown', (e) => {
+        const list = filteredList(input.value);
+        if (e.key === 'ArrowDown') { hl = Math.min(hl + 1, list.length - 1); render(); e.preventDefault(); }
+        else if (e.key === 'ArrowUp')   { hl = Math.max(hl - 1, 0); render(); e.preventDefault(); }
+        else if (e.key === 'Enter') {
+          if (hl >= 0 && list[hl]) pick(list[hl].value);
+          else if (allowFree) { hidden.value = input.value; close(); if (onChange) onChange(input.value); }
+          e.preventDefault();
+        }
+        else if (e.key === 'Escape') { close(); }
+      });
+      panel.addEventListener('mousedown', (e) => {
+        const t = e.target.closest('.cb-opt');
+        if (t) { pick(t.dataset.val); e.preventDefault(); }
+      });
+      clear.addEventListener('click', () => {
+        input.value = ''; hidden.value = ''; syncClear();
+        if (onChange) onChange('');
+        input.focus(); open();
+      });
+      document.addEventListener('mousedown', (e) => {
+        if (!wrap.contains(e.target)) close();
+      });
+
+      return {
+        element: wrap,
+        setOptions(opts) {
+          all = opts.map(o => typeof o === 'string' ? { value: o } : o);
+          render();
+        },
+        setValue(val) { input.value = val || ''; hidden.value = val || ''; syncClear(); },
+        getValue() { return hidden.value; },
+      };
+    }
+
+    // ─── Station / line indexes (built from geom) ─────────────
+    let STATION_LIST_ARR = [];
+    let LINE_LIST_ARR = [];
+    let STATION_LINES = {};   // station → [line names]
+    let LINE_STATIONS = {};   // line → [station names]
+    let LINE_COLOR = {};      // line → color hex
+
+    async function buildIndexes() {
+      const geom = await loadGeom();
+      STATION_LIST_ARR = Object.keys(geom.stations).sort();
+      LINE_LIST_ARR = Object.keys(geom.lines).sort();
+      STATION_LINES = {}; LINE_STATIONS = {}; LINE_COLOR = {};
+      for (const [lname, line] of Object.entries(geom.lines)) {
+        LINE_COLOR[lname] = line.color;
+        const set = new Set();
+        for (const [a, b] of line.segments) { set.add(a); set.add(b); }
+        LINE_STATIONS[lname] = [...set].sort();
+        for (const s of set) {
+          (STATION_LINES[s] = STATION_LINES[s] || []).push(lname);
+        }
+      }
+    }
+
+    // ─── Bootstrap: mode + user id ─────────────────────────────
+    let APP_MODE = 'employee';
+    function getUserId() {
+      let u = localStorage.getItem('tmb_user_id');
+      if (!u) {
+        u = 'u-' + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem('tmb_user_id', u);
+      }
+      return u;
+    }
+    const USER_ID = getUserId();
+
+    function api(path, opts = {}) {
+      opts.headers = Object.assign({ 'Content-Type': 'application/json',
+                                     'X-User-Id': USER_ID }, opts.headers || {});
+      return fetch(path, opts);
+    }
+
+    function esc(s) {
+      if (s == null) return '';
+      const d = document.createElement('div');
+      d.textContent = String(s);
+      return d.innerHTML;
+    }
+
+    function buildTabs() {
+      const tabs = document.getElementById('tabs');
+      const cfg = APP_MODE === 'employee'
+        ? [{ id: 'catalogScreen', label: 'Add Item' },
+           { id: 'dbScreen', label: 'Database', badge: 'dbCount' }]
+        : [{ id: 'findScreen', label: 'Find' },
+           { id: 'claimedScreen', label: 'Claimed', badge: 'claimedCount' }];
+      tabs.innerHTML = cfg.map((t, i) => `
+        <button class="tab ${i === 0 ? 'active' : ''}" data-screen="${t.id}">
+          ${t.label}${t.badge ? ` <span class="tab-badge" id="${t.badge}">0</span>` : ''}
+        </button>
+      `).join('');
+      document.getElementById(cfg[0].id).classList.add('active');
+      document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+          tab.classList.add('active');
+          document.getElementById(tab.dataset.screen).classList.add('active');
+          if (tab.dataset.screen === 'claimedScreen') loadClaims();
+          if (tab.dataset.screen === 'dbScreen') loadEntries();
+        });
+      });
+      document.getElementById('headerSubtitle').textContent =
+        APP_MODE === 'employee' ? 'Objectes Perduts — Staff' : 'Objectes Perduts — Passenger';
+    }
+
+    async function bootstrap() {
+      try {
+        const r = await fetch('/api/mode');
+        const d = await r.json();
+        APP_MODE = d.mode || 'employee';
+      } catch {}
+      buildTabs();
+      try { await buildIndexes(); } catch {}
+      if (APP_MODE === 'employee') {
+        setupEmployee();
+      } else {
+        setupUser();
+      }
+    }
+
+    // ─── EMPLOYEE: Add Item + Database ─────────────────────────
+    function setupEmployee() {
+      const form = document.getElementById('entryForm');
+      const status = document.getElementById('status');
+      const linkBanner = document.getElementById('linkBanner');
+      const linkMsg = document.getElementById('linkMsg');
+      const linkAddBtn = document.getElementById('linkAddBtn');
+      const linkDoneBtn = document.getElementById('linkDoneBtn');
+      const submitBtn = document.getElementById('submitBtn');
+
+      let linkToId = null;
+      let lastSavedId = null;
+      let lastStation = '';
+      let lastTime = '';
+      let lastImageB64 = '';
+
+      function setTimeNow() {
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('time').value = now.toISOString().slice(0, 16);
+      }
+      setTimeNow();
+
+      // ─── Station + Line searchable comboboxes ──────────────
+      let stationCB, lineCB;
+      const stationOpts = () => STATION_LIST_ARR.map(s => ({
+        value: s,
+        tag: (STATION_LINES[s] || []).join('·') || '—',
+      }));
+      const lineOpts = () => LINE_LIST_ARR.map(l => ({
+        value: l, tag: l, tagColor: LINE_COLOR[l] || '#888',
+      }));
+
+      stationCB = makeCombobox({
+        host: document.getElementById('stationHost'),
+        name: 'station', placeholder: 'Search station…', required: true,
+        options: stationOpts(),
+        onChange: (val) => {
+          if (!val) {
+            lineCB.setOptions(lineOpts());
+            return;
+          }
+          const lines = STATION_LINES[val] || [];
+          // Filter line picker to lines that serve this station.
+          lineCB.setOptions(lines.map(l => ({ value: l, tag: l, tagColor: LINE_COLOR[l] })));
+          // If the station belongs to exactly one line and the user hasn't
+          // picked a line yet, auto-fill it for them.
+          if (lines.length === 1 && !lineCB.getValue()) lineCB.setValue(lines[0]);
+        },
+      });
+      lineCB = makeCombobox({
+        host: document.getElementById('lineHost'),
+        name: 'line', placeholder: 'Search line…',
+        options: lineOpts(),
+        onChange: (val) => {
+          if (!val) {
+            stationCB.setOptions(stationOpts());
+            return;
+          }
+          const sts = LINE_STATIONS[val] || [];
+          stationCB.setOptions(sts.map(s => ({
+            value: s, tag: (STATION_LINES[s] || []).join('·'),
+          })));
+        },
+      });
+
+      function showStatus(msg, ok) {
+        status.textContent = msg;
+        status.className = 'status-msg ' + (ok ? 'ok' : 'err');
+        setTimeout(() => { status.className = 'status-msg'; }, 4000);
+      }
+
+      function showLinkBanner(parentId) {
+        lastSavedId = parentId;
+        linkMsg.textContent = `Item #${parentId} saved! Add connected items (e.g. items inside)?`;
+        linkBanner.classList.add('active');
+      }
+      function hideLinkBanner() {
+        linkBanner.classList.remove('active');
+        linkToId = null; lastSavedId = null;
+        submitBtn.textContent = 'Add Entry';
+      }
+      linkAddBtn.addEventListener('click', () => {
+        linkToId = lastSavedId;
+        linkBanner.classList.remove('active');
+        form.reset();
+        document.getElementById('station').value = lastStation;
+        document.getElementById('time').value = lastTime;
+        lastImageB64 = '';
+        submitBtn.textContent = `Add Connected Item (to #${linkToId})`;
+      });
+      linkDoneBtn.addEventListener('click', hideLinkBanner);
+
+      // Camera + upload
+      const detectBtn = document.getElementById('detectBtn');
+      const cameraBox = document.getElementById('cameraBox');
+      const video = document.getElementById('cameraVideo');
+      const canvas = document.getElementById('cameraCanvas');
+      const captureBtn = document.getElementById('captureBtn');
+      const retakeBtn = document.getElementById('retakeBtn');
+      const preview = document.getElementById('capturePreview');
+      const detectStatus = document.getElementById('detectStatus');
+      const photoStatus = document.getElementById('photoStatus');
+      let stream = null;
+
+      function fillFromDetection(d) {
+        if (d.item_type) document.getElementById('item_type').value = d.item_type;
+        if (d.main_color) document.getElementById('main_color').value = d.main_color;
+        if (d.secondary_colors) document.getElementById('secondary_colors').value = d.secondary_colors;
+        if (d.perks) document.getElementById('perks').value = d.perks;
+      }
+
+      function markPhotoAttached(label) {
+        photoStatus.className = 'detect-status active photo-attached';
+        photoStatus.textContent = '✓ Photo attached — will be saved with this entry' + (label ? ' (' + label + ')' : '');
+      }
+
+      function stopCameraTracks() {
+        if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+        video.srcObject = null;
+      }
+
+      function closeCamera() {
+        stopCameraTracks();
+        cameraBox.classList.remove('active');
+        video.classList.remove('hidden');
+        preview.classList.remove('active');
+        captureBtn.style.display = 'inline-block';
+        retakeBtn.classList.remove('active');
+        detectBtn.textContent = 'Detect (Camera)';
+        detectStatus.textContent = '';
+      }
+
+      detectBtn.addEventListener('click', async () => {
+        if (stream || cameraBox.classList.contains('active')) { closeCamera(); return; }
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } }
+          });
+          video.srcObject = stream;
+          cameraBox.classList.add('active');
+          video.classList.remove('hidden');
+          preview.classList.remove('active');
+          captureBtn.style.display = 'inline-block';
+          retakeBtn.classList.remove('active');
+          detectBtn.textContent = 'Close Camera';
+          detectStatus.textContent = 'Point at item and click Capture.';
+        } catch { alert('Camera access denied.'); }
+      });
+
+      captureBtn.addEventListener('click', async () => {
+        if (!stream) return;
+        // Freeze the frame onto the canvas, stop the camera, show the still.
+        canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+        canvas.getContext('2d').drawImage(video, 0, 0);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+        const b64 = dataUrl.split(',')[1];
+        lastImageB64 = b64;
+
+        stopCameraTracks();
+        video.classList.add('hidden');
+        preview.src = dataUrl;
+        preview.classList.add('active');
+        captureBtn.style.display = 'none';
+        retakeBtn.classList.add('active');
+
+        markPhotoAttached('camera');
+        detectStatus.textContent = 'Analyzing...'; detectStatus.classList.add('pulse');
+        try {
+          const r = await api('/api/detect', { method: 'POST', body: JSON.stringify({ image: b64 }) });
+          const d = await r.json();
+          if (d.error) detectStatus.textContent = 'Error: ' + d.error;
+          else { fillFromDetection(d); detectStatus.textContent = 'Detected — fields filled. Photo will be saved with the entry.'; }
+        } catch { detectStatus.textContent = 'Detection failed (photo still attached).'; }
+        detectStatus.classList.remove('pulse');
+      });
+
+      retakeBtn.addEventListener('click', async () => {
+        // Restart the camera for another shot.
+        lastImageB64 = '';
+        photoStatus.className = 'detect-status';
+        photoStatus.textContent = '';
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: 'environment', width: { ideal: 640 }, height: { ideal: 480 } }
+          });
+          video.srcObject = stream;
+          video.classList.remove('hidden');
+          preview.classList.remove('active');
+          captureBtn.style.display = 'inline-block';
+          retakeBtn.classList.remove('active');
+          detectStatus.textContent = 'Point at item and click Capture.';
+        } catch { alert('Camera access denied.'); }
+      });
+
+      const uploadInput = document.getElementById('uploadInput');
+      const uploadStatus = document.getElementById('uploadStatus');
+      uploadInput.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        uploadStatus.textContent = 'Analyzing...'; uploadStatus.className = 'detect-status active pulse';
+        const reader = new FileReader();
+        reader.onload = async () => {
+          const b64 = reader.result.split(',')[1];
+          lastImageB64 = b64;
+          markPhotoAttached('upload');
+          try {
+            const r = await api('/api/detect', { method: 'POST', body: JSON.stringify({ image: b64 }) });
+            const d = await r.json();
+            if (d.error) uploadStatus.textContent = 'Error: ' + d.error;
+            else { fillFromDetection(d); uploadStatus.textContent = 'Detected — fields filled.'; }
+          } catch { uploadStatus.textContent = 'Detection failed (photo still attached).'; }
+          uploadStatus.classList.remove('pulse');
+        };
+        reader.readAsDataURL(file);
+        uploadInput.value = '';
+      });
+
+      form.addEventListener('submit', async (ev) => {
+        ev.preventDefault();
+        const body = Object.fromEntries(new FormData(form));
+        if (linkToId) body.link_to = linkToId;
+        if (lastImageB64) body.image_b64 = lastImageB64;
+        lastStation = body.station; lastTime = body.time;
+        try {
+          const r = await api('/api/entries', { method: 'POST', body: JSON.stringify(body) });
+          let result = {};
+          try { result = await r.json(); } catch {}
+          if (!r.ok) {
+            const msg = (result && result.error) ? result.error : `HTTP ${r.status}`;
+            showStatus('Save failed: ' + msg, false);
+            console.error('save failed', r.status, result);
+            return;
+          }
+          const newId = result.id;
+          const wasLinked = !!linkToId;
+          showStatus(wasLinked
+            ? `Connected item #${newId} added (linked to #${linkToId}).`
+            : `Entry #${newId} added.`, true);
+          if (!wasLinked && result.routing && !result.routing.error) {
+            showRoutingCard(body.station, result.routing);
+          }
+          form.reset(); setTimeNow();
+          stationCB.setValue(''); stationCB.setOptions(stationOpts());
+          lineCB.setValue('');    lineCB.setOptions(lineOpts());
+          lastImageB64 = '';
+          closeCamera();
+          photoStatus.className = 'detect-status';
+          photoStatus.textContent = '';
+          uploadStatus.className = 'detect-status';
+          uploadStatus.textContent = '';
+          loadEntries();
+          showLinkBanner(wasLinked ? linkToId : newId);
+          linkToId = null;
+          submitBtn.textContent = 'Add Entry';
+        } catch (err) {
+          console.error('save threw', err);
+          showStatus('Save failed: ' + (err && err.message || 'network/JS error — check console'), false);
+        }
+      });
+
+      loadEntries();
+    }
+
+    // ─── Database listing ──────────────────────────────────────
+    async function loadEntries() {
+      if (APP_MODE !== 'employee') return;
+      const entriesDiv = document.getElementById('entries');
+      const badge = document.getElementById('dbCount');
+      try {
+        const r = await api('/api/entries');
+        const data = await r.json();
+        if (badge) badge.textContent = data.length;
+        if (!data.length) {
+          entriesDiv.innerHTML = '<div class="empty-msg">No entries yet.</div>';
+          return;
+        }
+        let html = `<table><thead><tr>
+          <th>ID</th><th>Photo</th><th>Station</th><th>Line</th><th>Item</th><th>Colors</th>
+          <th>Perks</th><th>Time Found</th><th>Storage</th><th>Arrival</th><th>Expires</th>
+          <th>Connected</th><th></th>
+        </tr></thead><tbody>`;
+        for (const e of data) {
+          const colors = [e.main_color, e.secondary_colors].filter(Boolean).join(', ');
+          const connIds = (e.connected_items || '').split(',').filter(x => x.trim());
+          const connHtml = connIds.length
+            ? connIds.map(id => `<span class="conn-id">#${esc(id.trim())}</span>`).join(' ')
+            : '';
+          const thumb = e.image_b64
+            ? `<img src="data:image/jpeg;base64,${e.image_b64}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;">`
+            : '<span style="color:var(--tmb-grey);">—</span>';
+          html += `<tr>
+            <td>#${e.id}</td>
+            <td>${thumb}</td>
+            <td>${esc(e.station)}</td>
+            <td>${esc(e.line || '—')}</td>
+            <td>${esc(e.item_type)}</td>
+            <td>${esc(colors)}</td>
+            <td>${esc(e.perks || '—')}</td>
+            <td>${esc((e.time || '').slice(0, 16))}</td>
+            <td>${esc(e.storage_station || '—')}</td>
+            <td>${esc((e.arrival_at || '').slice(0, 16))}</td>
+            <td>${esc((e.expires_at || '').slice(0, 16))}</td>
+            <td>${connHtml}</td>
+            <td><button class="delete-btn" onclick="deleteEntry(${e.id}, '${esc(e.item_type)}')">Delete</button></td>
+          </tr>`;
+        }
+        html += '</tbody></table>';
+        entriesDiv.innerHTML = html;
+      } catch {
+        entriesDiv.innerHTML = '<div class="empty-msg">Failed to load entries.</div>';
+      }
+    }
+    async function deleteEntry(id, itemType) {
+      const label = itemType ? `“${itemType}” (#${id})` : `entry #${id}`;
+      if (!confirm(`Delete ${label}? This cannot be undone.`)) return;
+      try { await api('/api/entries/' + id, { method: 'DELETE' }); loadEntries(); } catch {}
+    }
+    window.deleteEntry = deleteEntry;
+
+    // ─── Routing card + SVG metro map ──────────────────────────
+    let NETWORK_GEOM = null;
+    async function loadGeom() {
+      if (NETWORK_GEOM) return NETWORK_GEOM;
+      const r = await fetch('/network_geom.json');
+      NETWORK_GEOM = await r.json();
+      return NETWORK_GEOM;
+    }
+
+    async function showRoutingCard(foundStation, routing) {
+      const card = document.getElementById('routingCard');
+      document.getElementById('routingStation').textContent = '→ ' + routing.storage_station;
+      document.getElementById('routingSub').textContent =
+        `${foundStation} → ${routing.storage_station} · ${routing.hops_found_to_storage} hop${routing.hops_found_to_storage === 1 ? '' : 's'} · arrives in ${routing.arrival_days} day${routing.arrival_days === 1 ? '' : 's'}`;
+      document.getElementById('routingArrival').textContent = (routing.arrival_at || '').slice(0, 16);
+      document.getElementById('routingExpires').textContent = (routing.expires_at || '').slice(0, 16);
+      document.getElementById('routingEhops').textContent = routing.expected_hops.toFixed(2);
+      card.classList.remove('hidden');
+      try {
+        const geom = await loadGeom();
+        drawMetro('metroMap', geom, foundStation, routing.storage_station);
+      } catch {}
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function drawMetro(svgId, geom, found, storage) {
+      const svg = document.getElementById(svgId);
+      svg.innerHTML = '';
+      const ns = 'http://www.w3.org/2000/svg';
+
+      // ── adjacency for shortest-path: station -> [{to, line, color}]
+      const adj = {};
+      for (const [lname, line] of Object.entries(geom.lines)) {
+        for (const [a, b] of line.segments) {
+          if (!geom.stations[a] || !geom.stations[b]) continue;
+          (adj[a] = adj[a] || []).push({ to: b, line: lname, color: line.color });
+          (adj[b] = adj[b] || []).push({ to: a, line: lname, color: line.color });
+        }
+      }
+      // BFS from found to storage. Returns [{from,to,line,color}, …] or [].
+      function shortestPath(src, dst) {
+        if (!adj[src] || !adj[dst] || src === dst) return [];
+        const prev = { [src]: null };
+        const queue = [src];
+        while (queue.length) {
+          const cur = queue.shift();
+          if (cur === dst) break;
+          for (const e of adj[cur] || []) {
+            if (prev[e.to] !== undefined) continue;
+            prev[e.to] = { from: cur, line: e.line, color: e.color };
+            queue.push(e.to);
+          }
+        }
+        if (prev[dst] === undefined) return [];
+        const edges = [];
+        let node = dst;
+        while (prev[node]) {
+          edges.unshift({ from: prev[node].from, to: node,
+                          line: prev[node].line, color: prev[node].color });
+          node = prev[node].from;
+        }
+        return edges;
+      }
+      const pathEdges = shortestPath(found, storage);
+      const pathStations = new Set([found, storage]);
+      pathEdges.forEach(e => { pathStations.add(e.from); pathStations.add(e.to); });
+
+      // ── bbox of route only (zoomed view).
+      const pts = [...pathStations].map(n => geom.stations[n]).filter(Boolean);
+      if (pts.length === 0) return;
+      let minX = Math.min(...pts.map(p => p.x));
+      let maxX = Math.max(...pts.map(p => p.x));
+      let minY = Math.min(...pts.map(p => p.y));
+      let maxY = Math.max(...pts.map(p => p.y));
+      // Minimum span so a one-stop hop doesn't zoom to pixel scale: 8% of the
+      // full network's extent in each axis.
+      const allXs = Object.values(geom.stations).map(s => s.x);
+      const allYs = Object.values(geom.stations).map(s => s.y);
+      const minSpanX = (Math.max(...allXs) - Math.min(...allXs)) * 0.08;
+      const minSpanY = (Math.max(...allYs) - Math.min(...allYs)) * 0.08;
+      if (maxX - minX < minSpanX) {
+        const cx = (minX + maxX) / 2;
+        minX = cx - minSpanX / 2; maxX = cx + minSpanX / 2;
+      }
+      if (maxY - minY < minSpanY) {
+        const cy = (minY + maxY) / 2;
+        minY = cy - minSpanY / 2; maxY = cy + minSpanY / 2;
+      }
+      // 15% padding around the bbox so markers + labels stay inside.
+      const padX = (maxX - minX) * 0.15;
+      const padY = (maxY - minY) * 0.15;
+      minX -= padX; maxX += padX; minY -= padY; maxY += padY;
+
+      const W = 720, H = 360, PAD = 24;
+      const sx = x => PAD + (x - minX) / (maxX - minX) * (W - 2 * PAD);
+      const sy = y => H - PAD - (y - minY) / (maxY - minY) * (H - 2 * PAD);
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+
+      // Background: all metro lines (faint). They clip naturally to the viewBox.
+      for (const [, line] of Object.entries(geom.lines)) {
+        for (const [a, b] of line.segments) {
+          const sa = geom.stations[a], sb = geom.stations[b];
+          if (!sa || !sb) continue;
+          const ln = document.createElementNS(ns, 'line');
+          ln.setAttribute('x1', sx(sa.x)); ln.setAttribute('y1', sy(sa.y));
+          ln.setAttribute('x2', sx(sb.x)); ln.setAttribute('y2', sy(sb.y));
+          ln.setAttribute('stroke', line.color);
+          ln.setAttribute('stroke-width', 2);
+          ln.setAttribute('stroke-opacity', 0.25);
+          ln.setAttribute('stroke-linecap', 'round');
+          svg.appendChild(ln);
+        }
+      }
+      // Background: station dots.
+      for (const [, st] of Object.entries(geom.stations)) {
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', sx(st.x));
+        dot.setAttribute('cy', sy(st.y));
+        dot.setAttribute('r', st.transfer ? 3 : 2);
+        dot.setAttribute('fill', '#bbb');
+        dot.setAttribute('opacity', 0.6);
+        svg.appendChild(dot);
+      }
+      // Highlighted path segments — drawn on top in their line colors, thick,
+      // with a midpoint arrow indicating travel direction.
+      for (const e of pathEdges) {
+        const sa = geom.stations[e.from], sb = geom.stations[e.to];
+        if (!sa || !sb) continue;
+        const x1 = sx(sa.x), y1 = sy(sa.y), x2 = sx(sb.x), y2 = sy(sb.y);
+        const ln = document.createElementNS(ns, 'line');
+        ln.setAttribute('x1', x1); ln.setAttribute('y1', y1);
+        ln.setAttribute('x2', x2); ln.setAttribute('y2', y2);
+        ln.setAttribute('stroke', e.color);
+        ln.setAttribute('stroke-width', 5);
+        ln.setAttribute('stroke-opacity', 1);
+        ln.setAttribute('stroke-linecap', 'round');
+        svg.appendChild(ln);
+        // Midpoint direction arrow (white triangle on the colored line).
+        const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+        const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+        const arr = document.createElementNS(ns, 'polygon');
+        arr.setAttribute('points', '5,0 -3.5,3 -3.5,-3');
+        arr.setAttribute('fill', '#fff');
+        arr.setAttribute('stroke', e.color);
+        arr.setAttribute('stroke-width', 0.8);
+        arr.setAttribute('stroke-linejoin', 'round');
+        arr.setAttribute('transform', `translate(${mx} ${my}) rotate(${angle})`);
+        svg.appendChild(arr);
+      }
+      // Intermediate path stations: small dark dots so the route reads as a chain.
+      for (const name of pathStations) {
+        if (name === found || name === storage) continue;
+        const st = geom.stations[name];
+        if (!st) continue;
+        const dot = document.createElementNS(ns, 'circle');
+        dot.setAttribute('cx', sx(st.x));
+        dot.setAttribute('cy', sy(st.y));
+        dot.setAttribute('r', 3.5);
+        dot.setAttribute('fill', '#fff');
+        dot.setAttribute('stroke', '#333');
+        dot.setAttribute('stroke-width', 1.5);
+        svg.appendChild(dot);
+      }
+
+      function highlight(name, color, label) {
+        const st = geom.stations[name];
+        if (!st) return;
+        const ring = document.createElementNS(ns, 'circle');
+        ring.setAttribute('cx', sx(st.x)); ring.setAttribute('cy', sy(st.y));
+        ring.setAttribute('r', 8);
+        ring.setAttribute('fill', color);
+        ring.setAttribute('stroke', '#fff'); ring.setAttribute('stroke-width', 2.5);
+        svg.appendChild(ring);
+        const txt = document.createElementNS(ns, 'text');
+        txt.setAttribute('x', sx(st.x) + 12);
+        txt.setAttribute('y', sy(st.y) - 10);
+        txt.setAttribute('font-size', 12);
+        txt.setAttribute('font-weight', 700);
+        txt.setAttribute('fill', color);
+        txt.setAttribute('paint-order', 'stroke');
+        txt.setAttribute('stroke', '#fff');
+        txt.setAttribute('stroke-width', 3);
+        txt.textContent = label;
+        svg.appendChild(txt);
+      }
+      highlight(found, '#d62728', `Found: ${found}`);
+      highlight(storage, '#1a3d6b', `Store: ${storage}`);
+    }
+
+    // ─── USER: Find + Claimed ──────────────────────────────────
+    function setupUser() {
+      const chatMessages = document.getElementById('chatMessages');
+      const chatInput = document.getElementById('chatInput');
+      const chatSend = document.getElementById('chatSend');
+      const chatNew = document.getElementById('chatNew');
+      const banner = document.getElementById('claimsBanner');
+      const bannerText = document.getElementById('claimsBannerText');
+      const bannerLink = document.getElementById('claimsBannerLink');
+
+      let conversation = [];
+
+      function addMsg(text, role) {
+        const div = document.createElement('div');
+        div.className = 'chat-msg ' + role;
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return div;
+      }
+
+      function addSearchAnother(label) {
+        const wrap = document.createElement('div');
+        wrap.className = 'chat-msg assistant';
+        wrap.style.display = 'flex';
+        wrap.style.alignItems = 'center';
+        wrap.style.gap = '0.6rem';
+        wrap.innerHTML = `<span>${esc(label)}</span>
+          <button class="chat-new" style="margin-left:auto;">Search another item →</button>`;
+        wrap.querySelector('button').addEventListener('click', () => {
+          conversation = [];
+          chatMessages.innerHTML = '';
+          addMsg("OK, fresh start. What did you lose?", 'assistant');
+          chatInput.focus();
+        });
+        chatMessages.appendChild(wrap);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      function renderConfirm(match) {
+        const card = document.createElement('div');
+        card.className = 'confirm-card';
+        const img = match.image_b64
+          ? `<img src="data:image/jpeg;base64,${match.image_b64}" alt="found item">`
+          : `<div style="padding:1rem;color:var(--tmb-grey);font-style:italic;">No photo on file.</div>`;
+        card.innerHTML = `
+          ${img}
+          <div class="confirm-q">Is this your item?</div>
+          <div class="confirm-actions">
+            <button class="confirm-btn confirm-yes">Yes, that's mine</button>
+            <button class="confirm-btn confirm-no">No</button>
+          </div>`;
+        chatMessages.appendChild(card);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        card.querySelector('.confirm-yes').addEventListener('click', async () => {
+          card.querySelectorAll('button').forEach(b => b.disabled = true);
+          const r = await api('/api/claim', { method: 'POST',
+            body: JSON.stringify({ entry_id: match.id, confirm: true }) });
+          const d = await r.json();
+          if (d.error) { addMsg('Sorry — ' + d.error, 'assistant'); return; }
+          renderTicket(d);
+          const remind = document.createElement('div');
+          remind.className = 'chat-msg reminder';
+          remind.textContent = "Reminder: once you collect the item, open the Claimed tab and tap “I collected it” so we can free the locker.";
+          chatMessages.appendChild(remind);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+          addSearchAnother("Lost anything else?");
+          refreshClaimsBanner();
+        });
+        card.querySelector('.confirm-no').addEventListener('click', () => {
+          card.querySelectorAll('button').forEach(b => b.disabled = true);
+          addMsg("OK — that's not it. Give me another detail and I'll keep checking, or start a fresh search.", 'assistant');
+          addSearchAnother("Lost something else?");
+        });
+      }
+
+      function renderTicket(d) {
+        const t = document.createElement('div');
+        t.className = 'ticket';
+        const arr = d.available_now
+          ? '<b>Available now</b>'
+          : `<b>${esc((d.arrival_at || '').slice(0, 16))}</b>`;
+        const exp = esc((d.expires_at || '').slice(0, 16));
+        t.innerHTML = `
+          <div class="ticket-title">🎉 Your item has been found</div>
+          <div class="ticket-row">Locker station: <b>${esc(d.storage_station)}</b></div>
+          <div class="ticket-row">At: ${arr}</div>
+          <div class="ticket-row">Until: <b>${exp}</b></div>
+          <div class="ticket-row">Pickup code: <span class="ticket-code">${esc(d.pickup_code)}</span>, locker <b>#${d.locker_number}</b></div>`;
+        chatMessages.appendChild(t);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      async function sendChat() {
+        const text = chatInput.value.trim();
+        if (!text) return;
+        chatInput.value = '';
+        addMsg(text, 'user');
+        conversation.push({ role: 'user', text });
+        chatSend.disabled = true;
+        const thinking = addMsg('Checking...', 'thinking');
+        try {
+          const r = await api('/api/find', { method: 'POST',
+            body: JSON.stringify({ conversation }) });
+          const d = await r.json();
+          thinking.remove();
+          const reply = d.reply || d.error || 'No response.';
+          addMsg(reply, 'assistant');
+          conversation.push({ role: 'assistant', text: reply });
+          if (d.matches && d.matches.length) {
+            for (const m of d.matches) renderConfirm(m);
+          } else if (d.status === 'no_match') {
+            addSearchAnother("Try a different description?");
+          }
+        } catch {
+          thinking.remove();
+          addMsg('Failed to reach server.', 'assistant');
+        }
+        chatSend.disabled = false;
+        chatInput.focus();
+      }
+
+      chatSend.addEventListener('click', sendChat);
+      chatInput.addEventListener('keydown', e => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+      });
+      chatNew.addEventListener('click', () => {
+        conversation = [];
+        chatMessages.innerHTML = '';
+        addMsg("Hello! Describe the item you're looking for — type, colors, when and where you lost it, and any distinguishing features.", 'assistant');
+        chatInput.focus();
+      });
+
+      bannerLink.addEventListener('click', () => {
+        document.querySelector('[data-screen="claimedScreen"]').click();
+      });
+
+      refreshClaimsBanner();
+    }
+
+    async function refreshClaimsBanner() {
+      if (APP_MODE !== 'user') return;
+      try {
+        const r = await api('/api/my_claims');
+        const claims = await r.json();
+        const banner = document.getElementById('claimsBanner');
+        const text = document.getElementById('claimsBannerText');
+        const badge = document.getElementById('claimedCount');
+        if (badge) badge.textContent = claims.length;
+        if (claims.length) {
+          const first = claims[0];
+          text.textContent = `📦 You have ${claims.length} item${claims.length === 1 ? '' : 's'} waiting${first.storage_station ? ' at ' + first.storage_station : ''}.`;
+          banner.classList.add('active');
+        } else {
+          banner.classList.remove('active');
+        }
+      } catch {}
+    }
+
+    async function loadClaims() {
+      if (APP_MODE !== 'user') return;
+      const list = document.getElementById('claimedList');
+      try {
+        const r = await api('/api/my_claims');
+        const claims = await r.json();
+        const badge = document.getElementById('claimedCount');
+        if (badge) badge.textContent = claims.length;
+        if (!claims.length) {
+          list.innerHTML = '<div class="empty-msg">You haven\'t claimed any items yet.</div>';
+          return;
+        }
+        list.innerHTML = claims.map(c => renderClaimCard(c)).join('');
+        list.querySelectorAll('[data-extend]').forEach(b => {
+          b.addEventListener('click', () => extendClaim(parseInt(b.dataset.extend)));
+        });
+        list.querySelectorAll('[data-collect]').forEach(b => {
+          b.addEventListener('click', () => collectClaim(parseInt(b.dataset.collect)));
+        });
+      } catch {
+        list.innerHTML = '<div class="empty-msg">Failed to load.</div>';
+      }
+      refreshClaimsBanner();
+    }
+
+    function renderClaimCard(c) {
+      const arr = c.available_now
+        ? '<b>now</b>'
+        : `<b>${esc((c.arrival_at || '').slice(0, 16))}</b>`;
+      const exp = c.expires_at ? new Date(c.expires_at) : null;
+      const daysLeft = exp ? Math.ceil((exp - new Date()) / 86400000) : null;
+      let badge = '';
+      if (daysLeft != null) {
+        if (daysLeft < 0)      badge = `<span class="expiry-badge expired">expired</span>`;
+        else if (daysLeft <= 1) badge = `<span class="expiry-badge warn">${daysLeft}d left</span>`;
+        else                    badge = `<span class="expiry-badge">${daysLeft}d left</span>`;
+      }
+      const img = c.image_b64
+        ? `<img src="data:image/jpeg;base64,${c.image_b64}">`
+        : `<div style="width:90px;height:90px;background:#f0f0f0;border-radius:8px;"></div>`;
+      return `
+        <div class="claim-card">
+          ${img}
+          <div class="claim-body">
+            <div class="claim-title">${esc(c.item_type || 'Item')} ${badge}</div>
+            <div class="claim-meta">Locker: <b>${esc(c.storage_station || '—')} · #${c.locker_number}</b></div>
+            <div class="claim-meta">Code: <b>${esc(c.pickup_code)}</b></div>
+            <div class="claim-meta">Available: ${arr}  ·  Until: <b>${esc((c.expires_at || '').slice(0, 16))}</b></div>
+            <div class="claim-actions">
+              <button class="claim-btn claim-btn-extend" data-extend="${c.claim_id}" ${c.extended ? 'disabled' : ''}>
+                ${c.extended ? 'Extension used' : 'Extend (+3 days)'}
+              </button>
+              <button class="claim-btn claim-btn-collect" data-collect="${c.claim_id}">I collected it</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    async function extendClaim(id) {
+      try {
+        const r = await api(`/api/my_claims/${id}/extend`, { method: 'POST', body: '{}' });
+        const d = await r.json();
+        if (d.error) { alert(d.error); return; }
+        loadClaims();
+      } catch {}
+    }
+    function collectClaim(id) {
+      // Step 1: visual confirm modal.
+      openModal(`
+        <div class="modal-title">Confirm collection</div>
+        <div class="modal-body">
+          Mark this item as collected? This will free the locker and remove the item from our database.
+        </div>
+        <div class="modal-actions">
+          <button class="modal-btn modal-btn-ghost" id="mCancel">Cancel</button>
+          <button class="modal-btn modal-btn-danger" id="mConfirm">Yes, I collected it</button>
+        </div>
+      `);
+      document.getElementById('mCancel').onclick = closeModal;
+      document.getElementById('mConfirm').onclick = async () => {
+        try {
+          const r = await api(`/api/my_claims/${id}/collect`, { method: 'POST', body: '{}' });
+          const d = await r.json();
+          if (d.error) { closeModal(); alert(d.error); return; }
+          loadClaims();
+          // Step 2: optional questionnaire.
+          showQuestionnaire(d.snapshot || {});
+        } catch {
+          closeModal();
+        }
+      };
+    }
+
+    // ─── Modal helpers ────────────────────────────────────────
+    function openModal(html) {
+      const overlay = document.getElementById('modalOverlay');
+      document.getElementById('modalCard').innerHTML = html;
+      overlay.classList.add('active');
+    }
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.getElementById('modalCard').innerHTML = '';
+    }
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+      if (e.target.id === 'modalOverlay') closeModal();
+    });
+
+    // ─── Questionnaire ────────────────────────────────────────
+    function showQuestionnaire(snap) {
+      const item = esc(snap.item_type || 'your item');
+      const storage = esc(snap.storage_station || 'the assigned station');
+      openModal(`
+        <div class="modal-title">Quick feedback (optional)</div>
+        <div class="modal-body">
+          Thanks for collecting ${item}. A couple of optional questions — your answers help us tune the routing model.
+        </div>
+
+        <div class="q-section">
+          <div class="q-label">Were you satisfied with the pickup station? <span class="q-help">(${storage})</span></div>
+          <div class="q-yesno" id="qSat">
+            <button type="button" data-val="yes">Yes</button>
+            <button type="button" data-val="no">No</button>
+          </div>
+        </div>
+
+        <div class="q-section">
+          <div class="q-label">Which stations would you have preferred?</div>
+          <div class="q-help">Up to 3 — leave blank if you don't have a preference.</div>
+          <div class="q-pref-row">
+            <div id="qPref1Host"></div>
+            <div id="qPref2Host"></div>
+            <div id="qPref3Host"></div>
+          </div>
+        </div>
+
+        <div class="q-section">
+          <div class="q-label">Where do you think you lost the item?</div>
+          <div class="q-help">All optional.</div>
+          <div class="q-lost-row">
+            <div id="qLostLineHost"></div>
+            <div id="qLostStationHost"></div>
+            <input type="text" id="qLostTime" placeholder="Time (e.g. 18:30)">
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="modal-btn modal-btn-ghost"   id="qSkip">Skip</button>
+          <button class="modal-btn modal-btn-primary" id="qSubmit">Submit</button>
+        </div>
+      `);
+
+      let satisfied = null;
+      document.querySelectorAll('#qSat button').forEach(btn => {
+        btn.onclick = () => {
+          satisfied = btn.dataset.val === 'yes';
+          document.querySelectorAll('#qSat button').forEach(b => b.classList.remove('selected', 'yes', 'no'));
+          btn.classList.add('selected', satisfied ? 'yes' : 'no');
+        };
+      });
+
+      // Build comboboxes inside the modal.
+      const stationOptsAll = () => STATION_LIST_ARR.map(s => ({
+        value: s, tag: (STATION_LINES[s] || []).join('·'),
+      }));
+      const lineOptsAll = () => LINE_LIST_ARR.map(l => ({
+        value: l, tag: l, tagColor: LINE_COLOR[l] || '#888',
+      }));
+
+      const prefCBs = [1, 2, 3].map(i => makeCombobox({
+        host: document.getElementById(`qPref${i}Host`),
+        name: `qPref${i}`, placeholder: `${['1st', '2nd', '3rd'][i - 1]} choice`,
+        options: stationOptsAll(),
+      }));
+
+      let lostStationCB, lostLineCB;
+      lostLineCB = makeCombobox({
+        host: document.getElementById('qLostLineHost'),
+        name: 'qLostLine', placeholder: 'Line (e.g. L4)',
+        options: lineOptsAll(),
+        onChange: (val) => {
+          if (!val) { lostStationCB.setOptions(stationOptsAll()); return; }
+          const sts = LINE_STATIONS[val] || [];
+          lostStationCB.setOptions(sts.map(s => ({ value: s, tag: (STATION_LINES[s] || []).join('·') })));
+        },
+      });
+      lostStationCB = makeCombobox({
+        host: document.getElementById('qLostStationHost'),
+        name: 'qLostStation', placeholder: 'Station',
+        options: stationOptsAll(),
+        onChange: (val) => {
+          if (!val) { lostLineCB.setOptions(lineOptsAll()); return; }
+          const lines = STATION_LINES[val] || [];
+          lostLineCB.setOptions(lines.map(l => ({ value: l, tag: l, tagColor: LINE_COLOR[l] })));
+          if (lines.length === 1 && !lostLineCB.getValue()) lostLineCB.setValue(lines[0]);
+        },
+      });
+
+      document.getElementById('qSkip').onclick = closeModal;
+      document.getElementById('qSubmit').onclick = async () => {
+        const preferred = prefCBs.map(cb => cb.getValue().trim()).filter(Boolean);
+        const payload = {
+          entry_id: snap.entry_id || null,
+          item_type: snap.item_type || '',
+          original_station: snap.original_station || '',
+          storage_station: snap.storage_station || '',
+          satisfied,
+          preferred_stations: preferred,
+          lost_line:    lostLineCB.getValue().trim(),
+          lost_station: lostStationCB.getValue().trim(),
+          lost_time:    document.getElementById('qLostTime').value.trim(),
+        };
+        try {
+          await api('/api/feedback', { method: 'POST', body: JSON.stringify(payload) });
+        } catch {}
+        closeModal();
+      };
+    }
+
+
+    bootstrap();
+  </script>
+</body>
+</html>

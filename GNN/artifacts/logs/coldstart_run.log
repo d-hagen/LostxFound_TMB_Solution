@@ -1,0 +1,96 @@
+Device: cpu
+Stations: 157 total, 24 held out (cold)
+Events: train=36776  warm-val=4086  cold=9138
+Sample of held-out stations: ['Aeroport T1', 'Alfons X', 'Bon Pastor', "Camp de l'Arpa", 'Ciutat Meridiana', 'Diagonal', 'El Maresme-Fòrum', 'Església Major'] ...
+
+========== train full  (n_layers=2) ==========
+  metro=352  found=6300  lost=6432  pickup=6090
+  params: 103,746
+  ep  0   0.9s tl=4.1135 vl=3.6057 t1=0.165 E[h]=4.32
+  ep  1   0.8s tl=3.5576 vl=3.4135 t1=0.206 E[h]=4.09
+  ep  2   0.8s tl=3.3990 vl=3.3275 t1=0.230 E[h]=3.89
+  ep  3   0.8s tl=3.3124 vl=3.2461 t1=0.254 E[h]=3.80
+  ep  4   0.9s tl=3.2505 vl=3.1958 t1=0.270 E[h]=3.66
+  ep  5   0.8s tl=3.2073 vl=3.1666 t1=0.272 E[h]=3.61
+  ep  6   0.8s tl=3.1648 vl=3.1336 t1=0.279 E[h]=3.56
+  ep  7   0.8s tl=3.1266 vl=3.1065 t1=0.284 E[h]=3.54
+  ep  8   0.8s tl=3.1064 vl=3.0988 t1=0.286 E[h]=3.52
+  ep  9   0.8s tl=3.0841 vl=3.0609 t1=0.292 E[h]=3.47
+  ep 10   0.8s tl=3.0628 vl=3.0771 t1=0.291 E[h]=3.48
+  ep 11   0.8s tl=3.0448 vl=3.0703 t1=0.289 E[h]=3.50
+  ep 12   0.8s tl=3.0395 vl=3.0501 t1=0.290 E[h]=3.48
+  ep 13   0.8s tl=3.0262 vl=3.0361 t1=0.295 E[h]=3.43
+  ep 14   0.8s tl=3.0162 vl=3.0368 t1=0.291 E[h]=3.45
+  ep 15   0.8s tl=3.0002 vl=3.0287 t1=0.301 E[h]=3.42
+  ep 16   0.8s tl=2.9916 vl=3.0207 t1=0.294 E[h]=3.46
+  ep 17   0.8s tl=2.9845 vl=3.0279 t1=0.291 E[h]=3.45
+  ep 18   0.8s tl=2.9779 vl=3.0114 t1=0.294 E[h]=3.45
+  ep 19   0.8s tl=2.9746 vl=3.0128 t1=0.294 E[h]=3.41
+  ep 20   0.8s tl=2.9686 vl=3.0019 t1=0.296 E[h]=3.44
+  ep 21   0.8s tl=2.9570 vl=3.0046 t1=0.295 E[h]=3.41
+  ep 22   0.8s tl=2.9524 vl=3.0120 t1=0.296 E[h]=3.42
+  ep 23   0.8s tl=2.9437 vl=2.9958 t1=0.298 E[h]=3.42
+  ep 24   0.8s tl=2.9421 vl=3.0153 t1=0.296 E[h]=3.43
+  ep 25   0.8s tl=2.9362 vl=2.9853 t1=0.295 E[h]=3.39
+  ep 26   0.8s tl=2.9357 vl=3.0008 t1=0.298 E[h]=3.40
+  ep 27   0.8s tl=2.9307 vl=2.9918 t1=0.294 E[h]=3.40
+  ep 28   0.8s tl=2.9243 vl=3.0051 t1=0.296 E[h]=3.45
+  ep 29   0.8s tl=2.9217 vl=2.9978 t1=0.298 E[h]=3.41
+  ep 30   0.8s tl=2.9191 vl=2.9938 t1=0.295 E[h]=3.40
+  ep 31   0.8s tl=2.9148 vl=2.9922 t1=0.295 E[h]=3.39
+  ep 32   0.8s tl=2.9096 vl=2.9779 t1=0.298 E[h]=3.37
+  ep 33   0.8s tl=2.9038 vl=2.9928 t1=0.299 E[h]=3.39
+  ep 34   0.8s tl=2.9058 vl=2.9879 t1=0.295 E[h]=3.40
+  ep 35   0.8s tl=2.8987 vl=2.9878 t1=0.299 E[h]=3.39
+  ep 36   0.8s tl=2.8953 vl=2.9827 t1=0.297 E[h]=3.39
+  ep 37   0.8s tl=2.8944 vl=2.9864 t1=0.293 E[h]=3.39
+  ep 38   0.8s tl=2.8921 vl=2.9817 t1=0.295 E[h]=3.41
+  ep 39   0.8s tl=2.8877 vl=2.9808 t1=0.297 E[h]=3.40
+
+========== train no_mp  (n_layers=0) ==========
+  metro=352  found=6300  lost=6432  pickup=6090
+  params: 28,354
+  ep  0   0.1s tl=4.2836 vl=4.1520 t1=0.160 E[h]=4.70
+  ep  1   0.1s tl=4.0818 vl=4.0830 t1=0.182 E[h]=4.68
+  ep  2   0.1s tl=4.0336 vl=4.0527 t1=0.208 E[h]=4.59
+  ep  3   0.1s tl=4.0048 vl=4.0352 t1=0.206 E[h]=4.61
+  ep  4   0.1s tl=3.9838 vl=4.0170 t1=0.217 E[h]=4.55
+  ep  5   0.1s tl=3.9613 vl=3.9986 t1=0.210 E[h]=4.55
+  ep  6   0.1s tl=3.9430 vl=3.9876 t1=0.212 E[h]=4.56
+  ep  7   0.1s tl=3.9265 vl=3.9702 t1=0.216 E[h]=4.54
+  ep  8   0.1s tl=3.9119 vl=3.9600 t1=0.231 E[h]=4.54
+  ep  9   0.1s tl=3.8983 vl=3.9484 t1=0.232 E[h]=4.59
+  ep 10   0.1s tl=3.8842 vl=3.9359 t1=0.232 E[h]=4.46
+  ep 11   0.1s tl=3.8698 vl=3.9310 t1=0.239 E[h]=4.52
+  ep 12   0.1s tl=3.8570 vl=3.9207 t1=0.235 E[h]=4.58
+  ep 13   0.1s tl=3.8452 vl=3.9118 t1=0.244 E[h]=4.50
+  ep 14   0.1s tl=3.8341 vl=3.9055 t1=0.244 E[h]=4.50
+  ep 15   0.1s tl=3.8228 vl=3.8949 t1=0.242 E[h]=4.50
+  ep 16   0.1s tl=3.8108 vl=3.8915 t1=0.246 E[h]=4.49
+  ep 17   0.1s tl=3.7992 vl=3.8832 t1=0.241 E[h]=4.49
+  ep 18   0.1s tl=3.7898 vl=3.8779 t1=0.245 E[h]=4.47
+  early stop @ ep 18
+
+=== Warm-val (sanity check: in-distribution events) ===
+  full   top1=0.298 top3=0.467 top5=0.568 E[hops]=3.37
+  no_mp  top1=0.232 top3=0.311 top5=0.369 E[hops]=4.46
+
+=== COLD-TEST (found_at or lost_at ∈ unseen stations) ===
+  full   top1=0.196 top3=0.345 top5=0.446 E[hops]=4.14 cov=0.54
+  no_mp  top1=0.136 top3=0.205 top5=0.255 E[hops]=4.78 cov=0.22
+
+=== Baselines on cold-test ===
+  same_station    E[hops]=4.81 cov=0.78
+  mode_lookup     E[hops]=5.03 cov=0.50
+
+=== HEADLINE ===
+                  warm-val   cold-test
+full GNN        E[h]= 3.37  E[h]= 4.14
+no-MP (feat)    E[h]= 4.46  E[h]= 4.78
+mode_lookup              —  E[h]= 5.03
+same_station             —  E[h]= 4.81
+
+Full GNN advantage on cold-test:
+  vs no_mp:       +0.64 hops
+  vs mode_lookup: +0.89 hops
+  vs same_st:     +0.67 hops

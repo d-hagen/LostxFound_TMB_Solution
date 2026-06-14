@@ -1,0 +1,51 @@
+{
+  "data_path": "/Users/danhagen/Desktop/GNN/artifacts/data/v20260517_120754_bootstrap/real.jsonl",
+  "config": {
+    "hidden": 64,
+    "layers": 3,
+    "dropout": 0.1,
+    "node_feat_dim": 32,
+    "n_items": 13,
+    "n_stations": 157
+  },
+  "test_metrics": {
+    "loss": 46.22162841796875,
+    "top1": 0.085,
+    "top3": 0.185,
+    "top5": 0.225,
+    "expected_hops": 5.835,
+    "coverage": 0.1910828025477707,
+    "zone_hops": {
+      "airport": 10.3,
+      "business": 3.2962962962962963,
+      "hospital": 6.647058823529412,
+      "industrial": 11.444444444444445,
+      "leisure": 4.15,
+      "residential": 7.0606060606060606,
+      "tourist": 3.8214285714285716,
+      "university": 4.478260869565218
+    }
+  },
+  "baselines": [
+    {
+      "name": "same_station",
+      "top1": 0.1,
+      "expected_hops": 5.605,
+      "coverage": 0.5159235668789809
+    },
+    {
+      "name": "mode_lookup",
+      "top1": 0.08,
+      "expected_hops": 6.11,
+      "coverage": 0.21656050955414013
+    },
+    {
+      "name": "centroid",
+      "top1": 0.015,
+      "expected_hops": 6.775,
+      "coverage": 0.006369426751592357
+    }
+  ],
+  "seed": 0,
+  "n_params": 33153
+}

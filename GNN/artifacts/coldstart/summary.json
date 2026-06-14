@@ -1,0 +1,120 @@
+{
+  "n_unseen_stations": 24,
+  "unseen_stations": [
+    "Aeroport T1",
+    "Alfons X",
+    "Bon Pastor",
+    "Camp de l'Arpa",
+    "Ciutat Meridiana",
+    "Diagonal",
+    "El Maresme-F\u00f2rum",
+    "Esgl\u00e9sia Major",
+    "Guinard\u00f3-Hospital de Sant Pau",
+    "Horta",
+    "Joanic",
+    "La Sagrera",
+    "Marina",
+    "Mundet",
+    "Onze de Setembre",
+    "Parc Nou",
+    "P\u00e0dua",
+    "Sant Andreu",
+    "Sant Josep",
+    "Selva de Mar",
+    "Torre Bar\u00f3-Vallbona",
+    "Valldaura",
+    "Verdaguer",
+    "Vilapicina"
+  ],
+  "n_train_events": 36776,
+  "n_warm_val": 4086,
+  "n_cold": 9138,
+  "warm_val": {
+    "full": {
+      "loss": 2.977904257678659,
+      "top1": 0.297846304454234,
+      "top3": 0.4667156142927068,
+      "top5": 0.5675477239353891,
+      "expected_hops": 3.365394115447998,
+      "coverage": 0.47770700636942676,
+      "zone_hops": {
+        "airport": 6.293877601623535,
+        "business": 2.172346591949463,
+        "hospital": 4.919431209564209,
+        "industrial": 5.498127460479736,
+        "leisure": 3.0608229637145996,
+        "residential": 5.409901142120361,
+        "tourist": 2.0904762744903564,
+        "university": 2.9467592239379883
+      }
+    },
+    "no_mp": {
+      "loss": 3.935892233005996,
+      "top1": 0.23152227116984828,
+      "top3": 0.31130690161527164,
+      "top5": 0.3690651003426334,
+      "expected_hops": 4.458639144897461,
+      "coverage": 0.19745222929936307,
+      "zone_hops": {
+        "airport": 7.751020431518555,
+        "business": 2.5462512969970703,
+        "hospital": 5.805687427520752,
+        "industrial": 6.299625396728516,
+        "leisure": 4.733452796936035,
+        "residential": 6.263366222381592,
+        "tourist": 2.6857142448425293,
+        "university": 6.3240742683410645
+      }
+    }
+  },
+  "cold_test": {
+    "full": {
+      "loss": 3.516300407638433,
+      "top1": 0.19566644780039397,
+      "top3": 0.3454804114685927,
+      "top5": 0.4456117312322171,
+      "expected_hops": 4.136353492736816,
+      "coverage": 0.535031847133758,
+      "zone_hops": {
+        "airport": 5.2819671630859375,
+        "business": 2.644390344619751,
+        "hospital": 4.1914496421813965,
+        "industrial": 13.016194343566895,
+        "leisure": 3.2291066646575928,
+        "residential": 5.836870193481445,
+        "tourist": 2.680000066757202,
+        "university": 5.920670509338379
+      }
+    },
+    "no_mp": {
+      "loss": 4.388353407474283,
+      "top1": 0.135697089078573,
+      "top3": 0.2045305318450427,
+      "top5": 0.25508864084044647,
+      "expected_hops": 4.7802581787109375,
+      "coverage": 0.21656050955414013,
+      "zone_hops": {
+        "airport": 6.147541046142578,
+        "business": 2.7784528732299805,
+        "hospital": 4.985130310058594,
+        "industrial": 12.967611312866211,
+        "leisure": 4.4589338302612305,
+        "residential": 6.72015905380249,
+        "tourist": 2.8264000415802,
+        "university": 7.2893853187561035
+      }
+    },
+    "baselines": {
+      "same_station": {
+        "expected_hops": 4.806960105895996,
+        "coverage": 0.7834394904458599
+      },
+      "mode_lookup": {
+        "expected_hops": 5.026920318603516,
+        "coverage": 0.5031847133757962
+      }
+    }
+  },
+  "n_params_full": 103746,
+  "n_params_no_mp": 28354
+}

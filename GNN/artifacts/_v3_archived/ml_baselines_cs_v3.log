@@ -1,0 +1,23 @@
+Data: artifacts/data/synth_v3.jsonl  out: artifacts/ml_baselines_coldstart_v3.json
+Stations held out: 24
+Events: train=36285  warm-val=4031  cold=9684
+
+[MLP] training on warm only...
+  warm: top1=0.168 E[hops]=4.83
+  COLD: top1=0.073 E[hops]=5.95  (2.9s)
+
+[LogReg] training on warm only...
+  warm: top1=0.162 E[hops]=4.93
+  COLD: top1=0.073 E[hops]=6.09  (7.1s)
+
+Saved → artifacts/ml_baselines_coldstart_v3.json
+
+=== Cold-test comparison (events touching unseen stations) ===
+model                     top1    top5   E[hops]
+------------------------------------------------
+GNN (full)               0.104   0.289      5.60
+GNN (no message pass.)   0.061   0.187      5.77
+MLP                      0.073   0.226      5.95
+LogReg                   0.073   0.200      6.09
+baseline: same_station       —       —      7.02
+baseline: mode_lookup        —       —      6.59

@@ -1,0 +1,47 @@
+{
+  "name": "no_lost_input",
+  "config": {
+    "drop_metro": false,
+    "no_ctx_mp": false,
+    "n_layers": 2,
+    "hidden": 64,
+    "seed": 0
+  },
+  "test_metrics": {
+    "loss": 3.137619921875,
+    "top1": 0.287,
+    "top3": 0.4428,
+    "top5": 0.5282,
+    "expected_hops": 3.665800094604492,
+    "coverage": 0.4267515923566879,
+    "zone_hops": {
+      "airport": 6.282051086425781,
+      "business": 2.4415063858032227,
+      "hospital": 4.110032558441162,
+      "industrial": 6.5789475440979,
+      "leisure": 3.331920862197876,
+      "residential": 5.74068546295166,
+      "tourist": 2.366699695587158,
+      "university": 3.775193691253662
+    }
+  },
+  "best_val_metrics": {
+    "loss": 3.10844609375,
+    "top1": 0.2842,
+    "top3": 0.4488,
+    "top5": 0.5372,
+    "expected_hops": 3.645400047302246,
+    "coverage": 0.45222929936305734,
+    "zone_hops": {
+      "airport": 6.383141994476318,
+      "business": 2.4943089485168457,
+      "hospital": 4.284313678741455,
+      "industrial": 6.345890522003174,
+      "leisure": 3.1124660968780518,
+      "residential": 5.553097248077393,
+      "tourist": 2.331210136413574,
+      "university": 3.7450270652770996
+    }
+  },
+  "n_params": 103746
+}

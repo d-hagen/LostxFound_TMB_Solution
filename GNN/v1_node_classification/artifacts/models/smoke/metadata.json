@@ -1,0 +1,51 @@
+{
+  "data_path": "artifacts/data/dev/events.jsonl",
+  "config": {
+    "hidden": 64,
+    "layers": 3,
+    "dropout": 0.1,
+    "node_feat_dim": 32,
+    "n_items": 13,
+    "n_stations": 157
+  },
+  "test_metrics": {
+    "loss": 3.6515706665039063,
+    "top1": 0.1818,
+    "top3": 0.3338,
+    "top5": 0.4232,
+    "expected_hops": 4.967,
+    "coverage": 0.554140127388535,
+    "zone_hops": {
+      "airport": 11.91304347826087,
+      "business": 3.1720310765815762,
+      "hospital": 4.905063291139241,
+      "industrial": 9.135714285714286,
+      "leisure": 3.9316239316239314,
+      "residential": 6.429715302491103,
+      "tourist": 3.207723035952064,
+      "university": 4.475138121546961
+    }
+  },
+  "baselines": [
+    {
+      "name": "same_station",
+      "top1": 0.1206,
+      "expected_hops": 5.2514,
+      "coverage": 0.9872611464968153
+    },
+    {
+      "name": "mode_lookup",
+      "top1": 0.1634,
+      "expected_hops": 5.4256,
+      "coverage": 0.2484076433121019
+    },
+    {
+      "name": "centroid",
+      "top1": 0.0144,
+      "expected_hops": 6.5102,
+      "coverage": 0.006369426751592357
+    }
+  ],
+  "seed": 0,
+  "n_params": 33153
+}

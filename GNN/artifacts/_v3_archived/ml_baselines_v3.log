@@ -1,0 +1,26 @@
+/opt/homebrew/lib/python3.14/site-packages/sklearn/linear_model/_logistic.py:1184: FutureWarning: 'n_jobs' has no effect since 1.8 and will be removed in 1.10. You provided 'n_jobs=-1', please leave it unspecified.
+  warnings.warn(msg, category=FutureWarning)
+Data: artifacts/data/synth_v3.jsonl  out: artifacts/ml_baselines_v3.json
+Events: train=40000  val=5000  test=5000
+
+[MLP] training...
+  top1=0.175 top5=0.410 E[hops]=4.86 params=35,741 (3.4s)
+
+[LogReg] training...
+  top1=0.171 top5=0.395 E[hops]=4.97 params=52,438 (7.3s)
+
+[RandomForest] training (this may take a minute)...
+  top1=0.093 top5=0.250 E[hops]=5.91 (2.8s)
+
+[kNN k=25] training...
+  top1=0.096 top5=0.212 E[hops]=5.90 (0.0s)
+
+Saved → artifacts/ml_baselines_v3.json
+
+=== ML baselines on this dataset ===
+model                 top1    top3    top5   E[hops]
+----------------------------------------------------
+MLP                  0.175   0.321   0.410      4.86
+RandomForest         0.093   0.184   0.250      5.91
+LogReg               0.171   0.314   0.395      4.97
+kNN                  0.096   0.164   0.212      5.90

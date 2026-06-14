@@ -1,0 +1,46 @@
+{
+  "full": {
+    "name": "full (R-GCN, per-relation weights)",
+    "test": {
+      "loss": 3.760192578125,
+      "top1": 0.173,
+      "top3": 0.3222,
+      "top5": 0.4134,
+      "expected_hops": 4.893199920654297,
+      "coverage": 0.3630573248407643,
+      "zone_hops": {
+        "airport": 9.49748706817627,
+        "business": 3.050882577896118,
+        "hospital": 5.216216087341309,
+        "industrial": 7.013513565063477,
+        "leisure": 4.511545181274414,
+        "residential": 6.249687194824219,
+        "tourist": 2.9824562072753906,
+        "university": 5.221183776855469
+      }
+    },
+    "n_params": 103746
+  },
+  "shared": {
+    "name": "shared (vanilla-GCN, one shared weight)",
+    "test": {
+      "loss": 3.77045078125,
+      "top1": 0.176,
+      "top3": 0.3192,
+      "top5": 0.4102,
+      "expected_hops": 4.840799808502197,
+      "coverage": 0.37579617834394907,
+      "zone_hops": {
+        "airport": 7.055276393890381,
+        "business": 2.991692543029785,
+        "hospital": 5.198198318481445,
+        "industrial": 7.378378391265869,
+        "leisure": 4.438721179962158,
+        "residential": 6.176470756530762,
+        "tourist": 3.234649181365967,
+        "university": 5.63239860534668
+      }
+    },
+    "n_params": 53826
+  }
+}

@@ -32,10 +32,14 @@ Everything runs **locally and offline** — no cloud APIs, no keys.
 ## 1. `TMB/` — the application
 
 A single-page web app served by a dependency-free Python server (standard library only).
-It integrates with [Ollama](https://ollama.com) for two local models:
+It uses two LLMs:
 
-- **`llava`** (vision) — auto-describes a photographed found item (type, colours, features).
-- **`llama3.2`** (text) — powers the passenger search chatbot.
+- **`llava`** via [Ollama](https://ollama.com) (vision) — auto-describes a photographed
+  found item (type, colours, features).
+- **Claude** for the passenger search chatbot — `app.py` shells out to the local
+  `claude` CLI (Claude Code, model `claude-sonnet-4-6`). It uses your existing local
+  Claude Code login; no API key is stored in the repo. Override the binary with the
+  `CLAUDE_CLI` environment variable.
 
 Two modes share one server and database:
 
@@ -47,10 +51,11 @@ Two modes share one server and database:
 ### Run it
 
 ```bash
-# 1. Install Ollama from https://ollama.com, then pull the models (one-time):
+# 1. Install Ollama from https://ollama.com, then pull the vision model (one-time):
 ollama pull llava
-ollama pull llama3.2
 ollama serve
+
+# (The Find chat uses your local `claude` CLI — install Claude Code separately.)
 
 # 2. In another terminal:
 cd TMB
@@ -99,9 +104,10 @@ A smaller, self-contained version of the metro-graph GNN (`metro.py`, `network.p
 ## Requirements
 
 - **Python 3.10+** — the `TMB/` app uses only the standard library.
-- **Ollama** with the `llava` and `llava3.2` models (for the app's vision + chat features).
+- **Ollama** with the `llava` model (for the app's image description).
+- **Claude Code** (`claude` CLI) on your PATH and logged in (for the Find chatbot).
 - The `GNN/` training/eval scripts use PyTorch (see imports in the scripts).
-- ~8 GB free RAM to run both local models.
+- ~8 GB free RAM to run the local vision model.
 
 ## Notes
 
